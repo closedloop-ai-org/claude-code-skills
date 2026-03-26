@@ -296,31 +296,53 @@ WHO'S ON THE CALL?
 ==========================================================================
 ```
 
-### When the user picks names — output scannable cards:
+### When the user picks names — output per-person briefs (~30-40 lines each):
 
-The agents compute full dossiers (quotes, open threads, trends, workarounds,
-knowledge boundaries) but the OUTPUT is a scannable card per person (~15 lines).
-The full analysis stays in memory — if the user asks "tell me more about {name}"
-or "show Gemma's quotes", surface the deeper data.
+The agents compute full dossiers. The output balances depth with scannability.
 
 ```
+==========================================================================
 {NAME} — {Title}                                    {decides/recommends/executes}
-  Focus: {their top 2-3 topics}
-  Trend: {one line — escalating/stable/cooling, with evidence}
-  Last call ({date}): {2-3 lines — what they raised, asked, committed to.
-    What's still unresolved.}
-  Workaround: {their most notable workaround, one line}
-  Won't know about: {company-level topics they've never mentioned}
+==========================================================================
 
-  Ask {first name}:
+LAST CALL ({date})
+{What THIS person raised, asked, and committed to. 4-6 lines covering
+ their topics, their questions, what's still unresolved. Not a one-liner
+ but not a transcript either.}
+
+WHAT CHANGED SINCE
+{New activity from them or about their topics since that call. Open
+ threads that resolved or didn't. 2-4 lines. If nothing: "No new
+ activity since {date}."}
+
+3-MONTH TREND
+  {month}: {n} insights | {month}: {n} | {month}: {n} — {direction}
+  {One line: are they escalating, stable, cooling? New topics or repeating?}
+
+THEIR CONCERNS (top 3, with quotes)
+
+  {Topic 1}: "{most vivid quote}" — {date}
+  {Topic 2}: "{quote}" — {date}
+  {Topic 3}: "{quote}" — {date}
+
+OPEN THREADS
+  - {What was promised or committed}: {status} ({date})
+  - {Another thread}: {status}
+
+WORKAROUND: {their most notable workaround with sophistication level}
+
+WON'T KNOW ABOUT: {company-level topics they've never mentioned}
+
+ASK {FIRST NAME}:
   - "{Must-ask from open threads or last call}"
   - "{Should-ask from trend or knowledge gap}"
+  - "{If-time from workaround or forward-looking}"
 
----
+==========================================================================
 {Repeat for each selected person. Max 3 people.}
 
-Type "more on {first name}" for full dossier: all quotes, open threads,
-recurring questions, 3-month activity breakdown, and style analysis.
+Type "more on {first name}" for full dossier: all quotes by topic,
+recurring questions, style analysis, and detailed knowledge boundary.
 ```
 
 ## Output format (continued)
