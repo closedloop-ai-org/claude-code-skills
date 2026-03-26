@@ -9,10 +9,10 @@ Deep-dive into any topic against all customer feedback, strategic intelligence, 
 
 ## When to use
 
-- "What do customers say about dynamic pricing?"
-- "Is there real demand for SSO?"
-- "What's the evidence around mobile app reliability?"
-- "Deep-dive into kiosk mode issues"
+- "What do customers say about checkout flow?"
+- "Is there real demand for API rate limits?"
+- "What's the evidence around dashboard reliability?"
+- "Deep-dive into dashboard loading issues"
 - Validating a roadmap item before committing engineering time
 - Preparing evidence for a stakeholder discussion
 - Understanding a problem area before writing a spec
