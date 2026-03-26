@@ -149,7 +149,7 @@ CUSTOMER PREP: {Company Name}                               {today's date}
  What is the story of this account right now? What's the one thing that
  would change how you walk into this call?
  Examples:
- - "Stable $250K account but terminal reliability is eroding trust — 23 churn signals, all operational."
+ - "Stable $250K account but export reliability is eroding trust — 23 churn signals, all operational."
  - "New $50K deal at risk — they're evaluating a competitor and raised pricing twice in the last month."
  - "Happy power user with 3 expansion signals. This is a growth call, not a save call."}
 
