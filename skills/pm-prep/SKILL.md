@@ -148,12 +148,12 @@ LEARNING GOAL
 {What can this call teach you? Written LAST, after reading all evidence.
  Frame as a hypothesis to test or a knowledge gap to fill.
  Examples:
- - "114 customers report terminal crashes but we don't know if the manual
-   cash workaround is acceptable or deal-breaking. This call can answer that."
- - "This customer asked for dynamic pricing with external data — 3 others
-   mentioned similar needs. Test whether the underlying job is 'optimize
-   revenue' or 'match competitor prices.'"
- - "New booking modification bugs appeared this week. This customer was
+ - "114 customers report dashboard crashes but we don't know if the manual
+   spreadsheet workaround is acceptable or deal-breaking. This call can answer that."
+ - "This customer asked for custom reporting with external data — 3 others
+   mentioned similar needs. Test whether the underlying job is 'build
+   executive dashboards' or 'automate compliance reports.'"
+ - "New CSV export bugs appeared this week. This customer was
    affected. Learn whether this blocks a core workflow or is an edge case."}
 
 WHAT THEY'RE TRYING TO DO
