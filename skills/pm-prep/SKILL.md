@@ -26,17 +26,13 @@ Then stop.
 
 ## Input handling
 
-Company name required. Person names optional — when provided, the brief reshapes around those specific people.
+Always starts with a company name. Person selection happens in a second step.
 
 ```
-/closedloop:pm-prep Acme Corp                    → company brief + list known contacts
-/closedloop:pm-prep Acme Corp Jane Smith         → brief focused on Jane
-/closedloop:pm-prep Acme Corp Jane, Mike         → brief focused on Jane and Mike
+/closedloop:pm-prep Acme Corp
 ```
 
-**No person names** → show the company-level brief, then at the end list known contacts: "Who's on the call? Pick names to get per-person prep."
-
-**With person names** → the brief adds a WHO YOU'RE TALKING TO section with per-person concerns, questions, and knowledge boundaries. Company-level sections stay but are shorter.
+The skill resolves the company, runs the full brief, and shows a numbered contact list at the end. The user can then pick names to get per-person prep added.
 
 If `search_customers(query="{input}")` returns multiple matches, show a numbered list and ask the user to pick one. If no match, say so.
 
@@ -137,26 +133,27 @@ Write to `/tmp/pm-prep/strategic.md`:
 - Decision criteria: what they evaluate when choosing
 - Churn signals: what's driving risk (is it product gaps or operational issues?)
 
-**Agent 6: Per-person profiles (only if person names provided)**
+**Agent 6: Per-person profiles (runs ONLY after user picks names)**
 
-Skip this agent entirely if no person names were given in the input.
+This agent does NOT run during the initial brief. It runs when the user responds to the WHO'S ON THE CALL section by picking names (e.g., "1, 2" or "Megan, Bobbie").
+
+When triggered, launch one agent per selected person (in parallel):
 
 For each named person:
 - `search_insights(customer_id="{id}", query="{person_name}", limit=20)` — find insights reported by or mentioning this person
 - `get_insight(id)` for the top 10 — read full content, note `reporter_name` matches
+- `list_conversations(customer_id="{id}", source_type="calls", limit=10)` — find calls this person was on
+- `get_conversation(id, source)` for the 1-2 most recent calls where this person spoke
 
-From the transcripts already loaded in Agent 4, extract per-person:
+From the insights and transcripts, extract per-person:
 - What topics THIS person raised (not others on the same call)
 - What questions THIS person asked
 - How they communicate — direct vs diplomatic, technical vs business, data-driven vs gut
 - Their role in decision-making — do they decide, recommend, evaluate, or execute?
 - What they said last time that's still unresolved
+- What this person has NOT discussed — topics active at the company level but this person never mentioned. This is the knowledge boundary.
 
-Also identify what this person has NOT discussed — topics that are active at the company level but this person has never mentioned. This is the knowledge boundary.
-
-Write to `/tmp/pm-prep/people.md`:
-- Per person: name, title, their top 3 concerns (from their insights/quotes), communication style, decision role, last thing they said, knowledge boundary
-- Suggested questions tailored to THIS person (not generic company questions)
+Then output the WHO YOU'RE TALKING TO section directly (no file needed — the company brief is already shown).
 
 ### Step 3: Assemble the brief
 
@@ -239,39 +236,9 @@ SUGGESTED QUESTIONS
   {5-7 total. Every question traceable to a specific data point.
    Never "would you use X?" Always "walk me through the last time..."}
 
-{If person names were provided — show this section BEFORE suggested questions:}
-WHO YOU'RE TALKING TO
-
-  {For each named person:}
-  {Name} — {Title}
-  Cares about: {their top 2-3 topics, from their own insights/quotes}
-  Style: {how they communicate — direct/diplomatic, technical/business}
-  Role: {decides / recommends / evaluates / executes}
-  Last said: "{their most recent quote}" — {date}
-  Hasn't mentioned: {topics active at company level they've never raised}
-
-  Ask {first name}:
-  - "{Question tailored to what THIS person cares about and last said}"
-  - "{Question about a topic in their domain that's unresolved}"
-
-  {Repeat for each person. Max 3 people.}
-
-{If NO person names were provided — show this at the end:}
-WHO'S ON THE CALL?
-
-  Known contacts at {company}:
-  {Name} — {Title} ({n} insights, topics: {top 2 topics})
-  {Name} — {Title} ({n} insights, topics: {top 2 topics})
-  {Name} — {Title} ({n} insights, topics: {top 2 topics})
-  ...
-
-  Run again with names for per-person prep:
-  /closedloop:pm-prep {company} {Name1}, {Name2}
-
 THEIR VOICE
 {2-3 verbatim quotes that capture how this customer talks and thinks.
- Organized by underlying need, not category. Include emotional moments.
- Skip this section if WHO YOU'RE TALKING TO already shows their quotes.}
+ Organized by underlying need, not category. Include emotional moments.}
 
   On {topic}: "{vivid quote showing their perspective}"
   — {speaker}, {date}
@@ -279,6 +246,57 @@ THEIR VOICE
   On {topic}: "{quote showing frustration or excitement}"
   — {speaker}, {date}
 
+WHO'S ON THE CALL?
+{Always shown at the end of the initial brief. Lists known contacts
+ with their insight count and top topics so the PM can pick names.}
+
+  Known contacts at {company}:
+    1. {Name} — {Title} ({n} insights: {top 2 topics})
+    2. {Name} — {Title} ({n} insights: {top 2 topics})
+    3. {Name} — {Title} ({n} insights: {top 2 topics})
+    ...
+
+  Pick names for per-person prep (e.g. "1, 3" or "Megan, Bobbie"):
+
+==========================================================================
+```
+
+### When the user picks names — output this:
+
+```
+WHO YOU'RE TALKING TO
+=====================
+
+{Name} — {Title}
+  Cares about: {their top 2-3 topics, from their own insights/quotes}
+  Style: {how they communicate — direct/diplomatic, technical/business}
+  Role: {decides / recommends / evaluates / executes}
+  Last said: "{their most recent verbatim quote}" — {date}
+  Hasn't mentioned: {topics active at company level they've never raised}
+
+  Ask {first name}:
+  - "{Question tailored to what THIS person said last time}"
+  - "{Question about an unresolved topic in their domain}"
+
+---
+
+{Name} — {Title}
+  Cares about: {their top 2-3 topics}
+  Style: {communication style}
+  Role: {decision role}
+  Last said: "{quote}" — {date}
+  Hasn't mentioned: {knowledge boundary}
+
+  Ask {first name}:
+  - "{Tailored question}"
+  - "{Tailored question}"
+
+{Max 3 people. For each, every question traceable to their specific data.}
+```
+
+## Output format (continued)
+
+```
 SEGMENT LENS
 {Where this customer sits relative to peers in their segment.}
 
@@ -312,9 +330,10 @@ COMPETITIVE CONTEXT
 - **Workarounds = gold.** Always surface workarounds with their sophistication level. They prove the need is real and indicate willingness to pay.
 - **Segment context prevents bias.** Show where this customer sits vs. peers so the PM doesn't over-index on one voice.
 - **Competitor mentions decoded.** Don't just say "they mentioned X." Say what underlying need the mention reveals.
-- **People, not companies.** When person names are provided, reshape the brief around those individuals. Their concerns, their style, their questions — not the company aggregate. Each person gets tailored questions.
+- **People, not companies.** The brief always ends with a contact list. When the user picks names, run Agent 6 and show per-person profiles with tailored questions, communication style, and knowledge boundaries.
 - **Knowledge boundaries per person.** Show what each person has NOT discussed — it tells the PM where this person's expertise stops and someone else's starts.
-- **250-400 words without names, up to 500 with names.** Per-person sections add value but increase length. Cut company-level sections shorter to compensate.
+- **Two-step flow.** First run: company brief + contact list. Second run (after user picks names): per-person profiles. Never try to parse person names from the initial input — always resolve company first, then ask.
+- **250-400 words for initial brief.** Per-person follow-up adds up to 150 words per person.
 - **Omit empty sections.** No competitor data? Skip it. No strategic signals? Skip it. Thin accounts get shorter briefs.
 
 ## Data quality
