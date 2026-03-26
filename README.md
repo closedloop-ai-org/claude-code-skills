@@ -1,6 +1,6 @@
 # ClosedLoop AI Skills for Claude Code
 
-Turn every customer conversation into structured product insights — inside Claude Code. These skills connect to your ClosedLoop AI data so you can deep-dive into any topic, get a weekly intelligence brief, talk to a synthetic customer persona, prepare for calls, or analyze the competitive landscape.
+Turn every customer conversation into structured product insights — inside Claude Code. These skills connect to your ClosedLoop AI data so you can deep-dive into any topic and get the complete picture: every customer quote, pain point, business impact, workaround, and competitive signal extracted from your conversations.
 
 ## Prerequisites
 
@@ -20,68 +20,41 @@ Restart Claude Code, select `closedloop-ai` from `/mcp`, and authorize.
 
 Full setup guide: https://closedloop.sh/docs/mcp-server/overview
 
-## Manual Install
+## Install
 
-```bash
-for skill in deep-dive weekly-brief synthetic-customer competitor-gap csm-prep pm-prep; do
-  mkdir -p ~/.claude/skills/closedloop-$skill
-  curl -so ~/.claude/skills/closedloop-$skill/SKILL.md \
-    https://raw.githubusercontent.com/closedloop-ai-org/claude-code-skills/main/skills/$skill/SKILL.md
-done
+```
+/plugin install closedloop-skills
 ```
 
 ## Skills
 
 ### `/closedloop:deep-dive`
 
-Deep-dive into any topic against all your product insights and strategic intelligence. Reads every matching insight, looks up CRM data for affected customers, loads key conversation transcripts, and synthesizes the complete picture.
+Deep-dive into any topic against all your product insights and strategic intelligence. Reads every matching insight and signal, looks up CRM data for affected customers, and synthesizes the complete picture.
 
 ```
 /closedloop:deep-dive dynamic pricing
 /closedloop:deep-dive SSO support
+/closedloop:deep-dive mobile app reliability
 ```
 
-### `/closedloop:weekly-brief`
+**What you get:**
+- Synthesis of the real underlying problem (after reading ALL evidence)
+- Every customer quote, grouped by sub-theme
+- Business impact — deal blockers, churn risks, revenue at stake
+- Affected customers with CRM data — segment, industry, deals
+- Competitive context — which competitors customers mention and why
+- Workarounds — what customers do today to cope
+- Strategic signals — satisfaction, churn, decision criteria
+- Evidence gaps — what the data doesn't cover
 
-Weekly intelligence brief. 4 parallel agents read ALL evidence behind every spike, deal blocker, churn risk, and competitor mention — then synthesize into a 40-line brief you can scan in 60 seconds.
+### More skills coming soon
 
-```
-/closedloop:weekly-brief
-```
-
-### `/closedloop:synthetic-customer`
-
-Talk to any customer or segment as an AI persona built from their actual call transcripts, product feedback, CRM data, and public research. The persona knows what they said, how they talk, and what frustrates them.
-
-```
-/closedloop:synthetic-customer Acme Corp
-/closedloop:synthetic-customer Tour operators
-```
-
-### `/closedloop:competitor-gap`
-
-Competitive intelligence from customer conversations — threat ranking with 4-period trend analysis, feature gaps, your advantages, and actual call dialogue. Not desk research — real customer voice.
-
-```
-/closedloop:competitor-gap
-/closedloop:competitor-gap monthly
-```
-
-### `/closedloop:csm-prep`
-
-90-second pre-call brief for CSMs and account managers. Headline, landmines, what changed, top concerns in their own words, open threads, and how many other customers share the same pain.
-
-```
-/closedloop:csm-prep Acme Corp
-```
-
-### `/closedloop:pm-prep`
-
-Discovery brief for product managers. Learning goals, knowledge gaps, data-grounded Mom Test questions, adaptive cross-customer positioning, workaround analysis, and segment context. Turns a customer call into a research instrument.
-
-```
-/closedloop:pm-prep Acme Corp
-```
+- `/closedloop:sales-playbook` — Pain-point sales talk tracks from real customer quotes
+- `/closedloop:ship-notify` — Find customers who asked for something you shipped
+- `/closedloop:customer-prep` — Pre-call intelligence brief
+- `/closedloop:competitor-gap` — Competitive intel from conversations
+- `/closedloop:weekly-brief` — Weekly digest of what changed
 
 ## Requirements
 
