@@ -1,0 +1,12 @@
+{
+  "name": "closedloop-skills",
+  "description": "AI Product Discovery skills for Claude Code, powered by ClosedLoop AI. Deep-dive into any topic against all your product insights — every customer quote, pain point, business impact, and competitive signal extracted from your conversations.",
+  "version": "0.1.1",
+  "author": {
+    "name": "ClosedLoop AI",
+    "url": "https://closedloop.sh"
+  },
+  "homepage": "https://closedloop.sh/docs/mcp-server/overview",
+  "repository": "https://github.com/closedloop-ai-org/claude-code-skills",
+  "license": "MIT"
+}
