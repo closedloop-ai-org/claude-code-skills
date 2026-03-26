@@ -251,12 +251,10 @@ WHO'S ON THE CALL?
  with their insight count and top topics so the PM can pick names.}
 
   Known contacts at {company}:
-    1. {Name} — {Title} ({n} insights: {top 2 topics})
-    2. {Name} — {Title} ({n} insights: {top 2 topics})
-    3. {Name} — {Title} ({n} insights: {top 2 topics})
-    ...
+  {Numbered list of ALL known contacts with insights, sorted by insight count.
+   Each line: number, name, title, insight count, top 2 topics.}
 
-  Pick names for per-person prep (e.g. "1, 3" or "Megan, Bobbie"):
+  Pick names for per-person prep — use numbers or first names from the list above:
 
 ==========================================================================
 ```
