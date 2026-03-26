@@ -34,7 +34,7 @@ The user types a name. The skill figures out what it is:
 
 **Examples:**
 - `Acme Corp` → company mode
-- `Tour operators` → segment mode
+- `Enterprise customers` → segment mode
 - `frustrated enterprise customers` → segment mode with filters
 
 ## Persona file
@@ -181,7 +181,7 @@ Always err on the side of including more, not less. A longer persona file means 
 
 ### Segment mode differences
 
-For segment mode ("Tour operators"), the persona represents the collective:
+For segment mode ("Enterprise customers"), the persona represents the collective:
 - Layer 1 agents research the segment/industry broadly, not one company
 - Layer 2 agents sample transcripts from 5-10 representative companies in the segment
 - The persona uses "we" language and gives counts ("8 of us have raised this")
@@ -238,7 +238,7 @@ At the end of EVERY in-character response, add a brief source block separated by
 
 ```
 ---
-Sources: {list what grounded this response — e.g., "3 insights (terminal crashes), transcript Dec 5 2025, CRM deal data"}
+Sources: {list what grounded this response — e.g., "3 insights (dashboard crashes), transcript Dec 5 2025, CRM deal data"}
 Interpretation: {anything you said that was inferred rather than directly stated in the data — be honest}
 ```
 
@@ -278,7 +278,7 @@ When reading insights and transcripts, silently exclude noise:
 
 - **Never show raw frustration scores.** Interpret the 0-1 number into plain language: 0-0.2 = calm, 0.2-0.4 = mild frustration, 0.4-0.6 = moderate frustration, 0.6-0.8 = high frustration, 0.8-1.0 = extreme frustration.
 - **Stay in character.** Every response is from the customer's perspective, first person.
-- **Use their vocabulary.** If the transcript shows they say "kiosk" not "point of sale", use "kiosk."
+- **Use their vocabulary.** If the transcript shows they say "dashboard" not "analytics page", use "dashboard."
 - **Match their emotional tone.** If they're frustrated in the data, be frustrated. If they're excited, be excited.
 - **Be specific, not generic.** "Our checkout breaks when we have more than 600 guests at once" — not "we have checkout issues."
 - **Quote yourself.** Occasionally reference things "you said" in previous calls — this is the most convincing signal that the persona is real.
