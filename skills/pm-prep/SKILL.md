@@ -133,27 +133,64 @@ Write to `/tmp/pm-prep/strategic.md`:
 - Decision criteria: what they evaluate when choosing
 - Churn signals: what's driving risk (is it product gaps or operational issues?)
 
-**Agent 6: Per-person profiles (runs ONLY after user picks names)**
+**Agent 6: Per-person deep profiles (runs ONLY after user picks names)**
 
-This agent does NOT run during the initial brief. It runs when the user responds to the WHO'S ON THE CALL section by picking names (e.g., "1, 2" or "Megan, Bobbie").
+This agent does NOT run during the initial brief. It runs when the user responds to the WHO'S ON THE CALL section by picking names.
 
-When triggered, launch one agent per selected person (in parallel):
+When triggered, launch one agent per selected person (in parallel). Each agent builds a **mini pm-prep brief scoped to one human** — not a summary card.
 
 For each named person:
-- `search_insights(customer_id="{id}", query="{person_name}", limit=20)` — find insights reported by or mentioning this person
-- `get_insight(id)` for the top 10 — read full content, note `reporter_name` matches
-- `list_conversations(customer_id="{id}", source_type="calls", limit=10)` — find calls this person was on
-- `get_conversation(id, source)` for the 1-2 most recent calls where this person spoke
+- `search_insights(customer_id="{id}", query="{person_name}", limit=30)` — find ALL insights reported by this person
+- `get_insight(id)` for every result — read full content
+- `list_conversations(customer_id="{id}", source_type="calls", limit=15)` — find all calls
+- `get_conversation(id, source)` for the 2-3 most recent calls where this person spoke — read full transcripts
+- `search_insights(customer_id="{id}", query="{person_name}", date_from="{30_days_ago}", limit=10)` — recent insights for "what changed"
 
-From the insights and transcripts, extract per-person:
-- What topics THIS person raised (not others on the same call)
-- What questions THIS person asked
-- How they communicate — direct vs diplomatic, technical vs business, data-driven vs gut
-- Their role in decision-making — do they decide, recommend, evaluate, or execute?
-- What they said last time that's still unresolved
-- What this person has NOT discussed — topics active at the company level but this person never mentioned. This is the knowledge boundary.
+For each person, extract a FULL profile:
 
-Then output the WHO YOU'RE TALKING TO section directly (no file needed — the company brief is already shown).
+**Last call analysis:**
+- What did THIS person specifically raise, ask, and commit to on their most recent call?
+- What was discussed that's still open?
+- Not a one-liner — the full picture of their participation
+
+**What changed since their last call:**
+- New insights from them or about their topics since that call date
+- Open threads that resolved or didn't
+- New topics they hadn't raised before
+
+**3-month trend:**
+- Are their concerns escalating, stable, or cooling?
+- Are they raising new topics or repeating the same ones?
+- Is their frustration level increasing, flat, or decreasing?
+- Mention count by month (e.g., "Mar: 8, Feb: 5, Jan: 3 — escalating")
+
+**All open threads for this person:**
+- What was promised TO them (by your team)
+- What THEY committed to do
+- Status of each: resolved, unknown, still open
+
+**Their workarounds:**
+- What do they personally cope with?
+- Sophistication level of each workaround
+
+**Their recurring questions:**
+- What questions do they keep asking across calls? Recurring questions reveal what they're evaluating or what remains unsolved.
+
+**Their voice — verbatim quotes organized by topic:**
+- Not 1 quote. Their 5-8 most characteristic quotes across topics.
+- Organized by theme, with dates.
+
+**Communication style and decision role:**
+- How they talk, how they decide, who they defer to, who defers to them
+
+**Knowledge boundary:**
+- Topics active at the company level that this person has NEVER mentioned
+- This tells the PM what NOT to ask this person about
+
+**Tailored questions (3-5):**
+- Must-ask (2): from their open threads and last call
+- Should-ask (1-2): from their trend or knowledge gaps about their domain
+- All Mom Test compliant, traceable to their specific data
 
 ### Step 3: Assemble the brief
 
@@ -259,37 +296,92 @@ WHO'S ON THE CALL?
 ==========================================================================
 ```
 
-### When the user picks names — output this:
+### When the user picks names — output this per person:
 
 ```
-WHO YOU'RE TALKING TO
-=====================
+==========================================================================
+{NAME} — {Title}
+==========================================================================
 
-{Name} — {Title}
-  Cares about: {their top 2-3 topics, from their own insights/quotes}
-  Style: {how they communicate — direct/diplomatic, technical/business}
+LAST CALL ({date})
+{Full analysis of what THIS person raised, asked, and committed to on
+ their most recent call. Not a one-liner — 5-10 lines covering every
+ topic they touched, questions they asked, and commitments made.}
+
+WHAT CHANGED SINCE THAT CALL
+{New insights from them or about their topics since the last call date.
+ Open threads that resolved or didn't. New topics they hadn't raised before.
+ If nothing changed: "No new activity since {date}."}
+
+  - {Change 1}: "{quote}" — {date}
+  - {Change 2}: {description}
+
+3-MONTH TREND
+{Are their concerns escalating, stable, or cooling?}
+
+  Activity: {month}: {n}, {month}: {n}, {month}: {n} — {escalating/stable/cooling}
+  Frustration: {trend direction with evidence}
+  Focus shift: {are they raising new topics or repeating the same ones?}
+
+THEIR CONCERNS (in their own words)
+{This person's top 3-5 topics, with verbatim quotes for each.
+ Organized by theme. These are THEIR topics, not the company's.}
+
+  {Topic 1}:
+  - "{quote}" — {date}
+  - "{quote}" — {date}
+
+  {Topic 2}:
+  - "{quote}" — {date}
+
+  {Topic 3}:
+  - "{quote}" — {date}
+
+OPEN THREADS
+{What was promised TO this person, and what THEY committed to do.}
+
+  Promised to them:
+  - {commitment}: by {who}, on {date} — {status}
+
+  They committed to:
+  - {commitment}: on {date} — {status}
+
+WORKAROUNDS
+{What this person personally copes with. Sophistication level.}
+
+  - {workaround}: {sophistication assessment}
+
+RECURRING QUESTIONS
+{Questions they keep asking across calls — reveals what they're
+ evaluating or what remains unsolved.}
+
+  - "{question}" — asked {date}, {date}
+
+STYLE & ROLE
+  Style: {how they communicate}
   Role: {decides / recommends / evaluates / executes}
-  Last said: "{their most recent verbatim quote}" — {date}
-  Hasn't mentioned: {topics active at company level they've never raised}
+  Defers to: {who they defer decisions to}
+  Deferred to by: {who asks them for input}
 
-  Ask {first name}:
-  - "{Question tailored to what THIS person said last time}"
-  - "{Question about an unresolved topic in their domain}"
+KNOWLEDGE BOUNDARY
+  Active at company level but this person has NEVER mentioned:
+  {list of topics — tells you what NOT to ask them about}
 
----
+SUGGESTED QUESTIONS FOR {FIRST NAME}
 
-{Name} — {Title}
-  Cares about: {their top 2-3 topics}
-  Style: {communication style}
-  Role: {decision role}
-  Last said: "{quote}" — {date}
-  Hasn't mentioned: {knowledge boundary}
+  Must-ask:
+  - "{From their open threads or last call}"
+  - "{From their trend or a knowledge gap in their domain}"
 
-  Ask {first name}:
-  - "{Tailored question}"
-  - "{Tailored question}"
+  Should-ask:
+  - "{From a workaround or recurring question}"
+  - "{From what changed since their last call}"
 
-{Max 3 people. For each, every question traceable to their specific data.}
+  If-time:
+  - "{Forward-looking, about their underlying need}"
+
+==========================================================================
+{Repeat for each selected person}
 ```
 
 ## Output format (continued)
@@ -331,7 +423,7 @@ COMPETITIVE CONTEXT
 - **People, not companies.** The brief always ends with a contact list. When the user picks names, run Agent 6 and show per-person profiles with tailored questions, communication style, and knowledge boundaries.
 - **Knowledge boundaries per person.** Show what each person has NOT discussed — it tells the PM where this person's expertise stops and someone else's starts.
 - **Two-step flow.** First run: company brief + contact list. Second run (after user picks names): per-person profiles. Never try to parse person names from the initial input — always resolve company first, then ask.
-- **250-400 words for initial brief.** Per-person follow-up adds up to 150 words per person.
+- **250-400 words for initial brief.** Per-person follow-up is a full mini-brief per person — as deep as needed. No artificial word limit on per-person sections.
 - **Omit empty sections.** No competitor data? Skip it. No strategic signals? Skip it. Thin accounts get shorter briefs.
 
 ## Data quality
