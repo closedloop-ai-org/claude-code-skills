@@ -296,92 +296,31 @@ WHO'S ON THE CALL?
 ==========================================================================
 ```
 
-### When the user picks names — output this per person:
+### When the user picks names — output scannable cards:
+
+The agents compute full dossiers (quotes, open threads, trends, workarounds,
+knowledge boundaries) but the OUTPUT is a scannable card per person (~15 lines).
+The full analysis stays in memory — if the user asks "tell me more about {name}"
+or "show Gemma's quotes", surface the deeper data.
 
 ```
-==========================================================================
-{NAME} — {Title}
-==========================================================================
+{NAME} — {Title}                                    {decides/recommends/executes}
+  Focus: {their top 2-3 topics}
+  Trend: {one line — escalating/stable/cooling, with evidence}
+  Last call ({date}): {2-3 lines — what they raised, asked, committed to.
+    What's still unresolved.}
+  Workaround: {their most notable workaround, one line}
+  Won't know about: {company-level topics they've never mentioned}
 
-LAST CALL ({date})
-{Full analysis of what THIS person raised, asked, and committed to on
- their most recent call. Not a one-liner — 5-10 lines covering every
- topic they touched, questions they asked, and commitments made.}
+  Ask {first name}:
+  - "{Must-ask from open threads or last call}"
+  - "{Should-ask from trend or knowledge gap}"
 
-WHAT CHANGED SINCE THAT CALL
-{New insights from them or about their topics since the last call date.
- Open threads that resolved or didn't. New topics they hadn't raised before.
- If nothing changed: "No new activity since {date}."}
+---
+{Repeat for each selected person. Max 3 people.}
 
-  - {Change 1}: "{quote}" — {date}
-  - {Change 2}: {description}
-
-3-MONTH TREND
-{Are their concerns escalating, stable, or cooling?}
-
-  Activity: {month}: {n}, {month}: {n}, {month}: {n} — {escalating/stable/cooling}
-  Frustration: {trend direction with evidence}
-  Focus shift: {are they raising new topics or repeating the same ones?}
-
-THEIR CONCERNS (in their own words)
-{This person's top 3-5 topics, with verbatim quotes for each.
- Organized by theme. These are THEIR topics, not the company's.}
-
-  {Topic 1}:
-  - "{quote}" — {date}
-  - "{quote}" — {date}
-
-  {Topic 2}:
-  - "{quote}" — {date}
-
-  {Topic 3}:
-  - "{quote}" — {date}
-
-OPEN THREADS
-{What was promised TO this person, and what THEY committed to do.}
-
-  Promised to them:
-  - {commitment}: by {who}, on {date} — {status}
-
-  They committed to:
-  - {commitment}: on {date} — {status}
-
-WORKAROUNDS
-{What this person personally copes with. Sophistication level.}
-
-  - {workaround}: {sophistication assessment}
-
-RECURRING QUESTIONS
-{Questions they keep asking across calls — reveals what they're
- evaluating or what remains unsolved.}
-
-  - "{question}" — asked {date}, {date}
-
-STYLE & ROLE
-  Style: {how they communicate}
-  Role: {decides / recommends / evaluates / executes}
-  Defers to: {who they defer decisions to}
-  Deferred to by: {who asks them for input}
-
-KNOWLEDGE BOUNDARY
-  Active at company level but this person has NEVER mentioned:
-  {list of topics — tells you what NOT to ask them about}
-
-SUGGESTED QUESTIONS FOR {FIRST NAME}
-
-  Must-ask:
-  - "{From their open threads or last call}"
-  - "{From their trend or a knowledge gap in their domain}"
-
-  Should-ask:
-  - "{From a workaround or recurring question}"
-  - "{From what changed since their last call}"
-
-  If-time:
-  - "{Forward-looking, about their underlying need}"
-
-==========================================================================
-{Repeat for each selected person}
+Type "more on {first name}" for full dossier: all quotes, open threads,
+recurring questions, 3-month activity breakdown, and style analysis.
 ```
 
 ## Output format (continued)
