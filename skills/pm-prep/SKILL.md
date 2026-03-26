@@ -343,6 +343,15 @@ ASK {FIRST NAME}:
 
 Type "more on {first name}" for full dossier: all quotes by topic,
 recurring questions, style analysis, and detailed knowledge boundary.
+
+EXPLORE MORE
+  - "{Suggestion 1 — a relevant follow-up using /closedloop:deep-dive}"
+  - "{Suggestion 2 — a relevant follow-up using /closedloop:synthetic-customer}"
+  - "{Suggestion 3 — a relevant follow-up using /closedloop:competitor-gap}"
+
+{3 suggestions grounded in what was discovered during THIS brief.
+ Each shows the exact command to run. Never use hardcoded topic examples
+ in this template — generate from the actual data at runtime.}
 ```
 
 ## Output format (continued)
