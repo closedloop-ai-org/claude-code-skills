@@ -107,8 +107,8 @@ For EACH category that spiked >30%, same split:
 
 After reading all these insights, write to `/tmp/wb-spikes.md`:
 - For each spike: what's driving it FROM SUPPORT (what's breaking) vs FROM CALLS (what customers are asking for)
-- One-sentence interpretation per spike that names both sides: "Integrations (248): 180 from support — OTA sync failures and automated partner errors. 68 from calls — operators asking for new connections and better reseller controls."
-- Identify if automated sources (OTA errors, partner bots) inflate the support numbers
+- One-sentence interpretation per spike that names both sides: "Integrations (248): 180 from support — third-party integration errors and automated webhook failures. 68 from calls — customers asking for new integrations and better access controls."
+- Identify if automated sources (webhook errors, automated alerts) inflate the support numbers
 - Identify if a single onboarding call inflates the calls numbers
 - Note cross-spike patterns (same customers appearing in multiple spikes)
 
@@ -198,7 +198,7 @@ COMPETITIVE
 This is the most important part. It goes at the top but you write it LAST — after reading all 4 agent files. It should read like a news lede:
 
 Good example:
-"Rough week on the support side — two critical outages took down ticket sales and POS payments. An upcoming go-live is blocked by import gaps. But the calls tell a different story: feature requests surged (+49%) as operators ramp up for season, asking for membership management and dynamic pricing. The fix-vs-build tension is real: 66% of this week's volume is support fires, 34% is strategic product demand."
+"Rough week on the support side — two critical outages took down checkout and payment processing. A key account's migration is blocked by import gaps. But the calls tell a different story: feature requests surged (+49%) as customers ramp up for Q2, asking for team management and search performance improvements. The fix-vs-build tension is real: 66% of this week's volume is support fires, 34% is strategic product demand."
 
 Bad example:
 "This week there were 1,423 insights from 258 customers. There were 3 deal blockers and 7 churn risks. Categories that spiked include..."
@@ -217,7 +217,7 @@ When reading insights, silently exclude noise and report only real human feedbac
 
 - **40-50 lines total.** Hard cap 55. If you can't fit it, your sentences are too long.
 - **Every claim is backed by evidence you read.** Never say "integrations spiked" without knowing why.
-- **No raw numbers without interpretation.** "+54%" alone is banned. "+54% — OTA sync failures across 8 customers" is required.
+- **No raw numbers without interpretation.** "+54%" alone is banned. "+54% — third-party integration errors across 8 customers" is required.
 - **No jargon.** No RIC scores, frustration floats, kano categories. Business language.
 - **Never show raw frustration scores.** Interpret the 0-1 number into plain language: 0-0.2 = calm, 0.2-0.4 = mild frustration, 0.4-0.6 = moderate frustration, 0.6-0.8 = high frustration, 0.8-1.0 = extreme frustration.
 - **Group related items.** 3 bugs from the same customer = 1 entry, not 3.
