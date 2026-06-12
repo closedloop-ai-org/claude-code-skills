@@ -23,7 +23,7 @@ Full setup guide: https://closedloop.sh/docs/mcp-server/overview
 ## Manual Install
 
 ```bash
-for skill in deep-dive weekly-brief synthetic-customer competitor-gap csm-prep pm-prep; do
+for skill in deep-dive weekly-brief synthetic-customer competitor-gap csm-prep pm-prep sales-playbook ship-notify; do
   mkdir -p ~/.claude/skills/closedloop-$skill
   curl -so ~/.claude/skills/closedloop-$skill/SKILL.md \
     https://raw.githubusercontent.com/closedloop-ai-org/claude-code-skills/main/skills/$skill/SKILL.md
@@ -81,6 +81,24 @@ Discovery brief for product managers. Learning goals, knowledge gaps, data-groun
 
 ```
 /closedloop:pm-prep Acme Corp
+```
+
+### `/closedloop:sales-playbook`
+
+Pain-point sales talk tracks from real customer quotes, workarounds, and competitor gaps. General playbook per topic, or micro-targeted for a specific customer with social proof from their peers.
+
+```
+/closedloop:sales-playbook integration pain points
+/closedloop:sales-playbook Acme Corp
+```
+
+### `/closedloop:ship-notify`
+
+Find every customer who asked for something you just shipped, generate personalized outreach per customer. Closes the feedback loop — the thing 95% of companies fail to do.
+
+```
+/closedloop:ship-notify CSV export feature
+/closedloop:ship-notify API rate limit fix
 ```
 
 ## Requirements

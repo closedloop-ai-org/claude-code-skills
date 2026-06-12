@@ -79,15 +79,23 @@ Write to `/tmp/wb-numbers.md`:
 
 MCP calls:
 - `search_insights(is_deal_blocker=true, date_from="{this_week_start}", limit=20)`
-- `search_insights(is_churn_risk=true, date_from="{this_week_start}", limit=20)`
-- `get_insight(id)` for EVERY deal blocker and churn risk
+- `get_insight(id)` for EVERY deal blocker
 - `search_signals(type="churn_reason", date_from="{this_week_start}", limit=20)`
 - `get_signal(id)` for EVERY churn_reason signal
+- `get_customer(name="{customer}")` for EVERY customer that appears in a churn signal — you need their CRM status before you can call them at-risk
+
+Do NOT use `is_churn_risk` — that flag is dead. A stated-churn signal is a `churn_reason` signal, nothing else. `general_dislike` is dissatisfaction, NOT intent to leave — a count of dislikes is never a "churn count" (an engaged account accumulates dozens over time).
+
+**Churn verification — REQUIRED before any account is called "churning", "at risk", "lost", or "done":**
+A churn quote is a CLAIM, not a verdict. Verify each one before it earns a line:
+1. **Scope — full account vs. partial.** Read the conversation (`get_conversation`) around the quote. A customer moving ONE use-case, site, or product line to a DIFFERENT-CATEGORY tool (e.g. a restaurant/F&B booking tool alongside a ticketing platform) is NOT account churn. Scope words ("for now", "this site", "these bookings", "for the restaurant") bound the claim — quote them. Only language ending the WHOLE relationship is account churn.
+2. **CRM status.** From `get_customer`: an active customer with open or won deals is NOT "done". Say "partial migration" or "watch" — never "churned/lost".
+3. **Engagement.** A customer still generating insights and conversations this period is engaged, not gone. Silence is the churn tell, not volume. (A churned account with zero insights predates our feedback window — never call it "silent".)
 
 After reading all details, write to `/tmp/wb-urgent.md`:
 - For each deal blocker: customer name, one-sentence summary of what's blocked and why, severity
-- For each churn risk: customer name, one-sentence summary, severity
-- For each churn signal: customer name, urgency level, one-sentence summary
+- For each VERIFIED churn item: customer name, full-account vs. partial/product-line, the corroboration (CRM status, deal stage, engagement), one-sentence summary
+- For each churn quote you DOWNGRADED: customer name + why it failed verification (so it doesn't resurface as a false alarm)
 - Group related items (e.g., 3 issues from same customer = 1 entry)
 - Your judgment: which are the most critical and why (you read everything, now rank them)
 
@@ -220,6 +228,7 @@ When reading insights, silently exclude noise and report only real human feedbac
 - **No raw numbers without interpretation.** "+54%" alone is banned. "+54% — third-party integration errors across 8 customers" is required.
 - **No jargon.** No RIC scores, frustration floats, kano categories. Business language.
 - **Never show raw frustration scores.** Interpret the 0-1 number into plain language: 0-0.2 = calm, 0.2-0.4 = mild frustration, 0.4-0.6 = moderate frustration, 0.6-0.8 = high frustration, 0.8-1.0 = extreme frustration.
+- **Churn discipline — never declare an account churning, lost, or "done" from one quote or a count of dislikes.** Verify scope (full vs. partial — read the transcript), CRM status (`get_customer`: active customer with open deals ≠ churned), and engagement (still talking to us ≠ gone). Partial product-line migration to a different-category tool is "watch", not churn. Mixed evidence → "watch", never "done/escalate". `general_dislike` is dissatisfaction, not intent to leave.
 - **Group related items.** 3 bugs from the same customer = 1 entry, not 3.
 - **Omit empty sections.** No competitors this week? Skip the section entirely.
 - **Exact numbers.** "47" not "45+".
