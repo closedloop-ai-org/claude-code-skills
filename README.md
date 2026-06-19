@@ -103,7 +103,7 @@ Find every customer who asked for something you just shipped, generate personali
 
 ### `/closedloop:send-feedback`
 
-Send feedback about ClosedLoop AI to the ClosedLoop team — a bug, a feature request, or praise about the platform itself. Translated to English and sent directly; no confirmation, no ticket id. (Not for logging your own customers' feedback — that comes in through your connected sources.)
+Send feedback about ClosedLoop AI to the ClosedLoop team — a bug, a feature request, or praise about the platform itself. (Not for logging your own customers' feedback — that comes in through your connected sources.)
 
 ```
 /closedloop:send-feedback the weekly brief should let me filter by segment
