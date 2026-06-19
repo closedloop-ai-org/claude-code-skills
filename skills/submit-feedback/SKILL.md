@@ -1,11 +1,11 @@
 ---
 name: "closedloop:submit-feedback"
-description: "Capture a piece of customer feedback into ClosedLoop AI — translate it to English, strip unrelated PII, preview it, then submit on your confirmation. The other half of the closed loop: get feedback IN as cleanly as the read skills get insights OUT."
+description: "Capture a piece of customer feedback into ClosedLoop AI — translate it to English, strip unrelated PII, and submit it. The other half of the closed loop: get feedback IN as cleanly as the read skills get insights OUT."
 ---
 
 # /closedloop:submit-feedback
 
-A customer told you something about the product — on a call, in a Slack thread, in an email, or right here in this conversation. Capture it in ClosedLoop AI so it joins your product insights. This skill takes the raw feedback, translates it to English, strips PII that isn't the signal, shows you a preview, and submits **only after you confirm**.
+A customer told you something about the product — on a call, in a Slack thread, in an email, or right here in this conversation. Capture it in ClosedLoop AI so it joins your product insights. This skill takes the raw feedback, translates it to English, strips PII that isn't the signal, and submits it.
 
 ## Check ClosedLoop AI MCP is available
 
@@ -46,7 +46,7 @@ Pull the real product feedback the customer expressed — the complaint, request
 
 ### Step 2: Translate to English
 
-If the feedback isn't in English, translate it **faithfully** — preserve the meaning verbatim, keep the customer's own framing. Do NOT summarize or paraphrase. (ClosedLoop AI content is English-by-contract downstream.) Keep the original text to show in the preview.
+If the feedback isn't in English, translate it **faithfully** — preserve the meaning verbatim, keep the customer's own framing. Do NOT summarize or paraphrase. (ClosedLoop AI content is English-by-contract downstream.)
 
 ### Step 3: Scrub PII from the content
 
@@ -69,36 +69,14 @@ Put triage context into `metadata` — only what's actually known from the conve
 
 Everything in `metadata` is an unverified hint. Never fabricate a value to fill a field — omit it.
 
-### Step 5: Preview and confirm
+### Step 5: Submit
 
-Show the user exactly what will be submitted, then stop for confirmation:
-
-```
-PREVIEW — submit to ClosedLoop AI?
-
-  Feedback (English):
-    "{translated, PII-scrubbed content}"
-  {Original ({lang}): "{verbatim original}"   ← only shown if you translated}
-
-  Metadata:
-    customer: {…}
-    source: {…}
-    {…}
-
-  Submit this?  (yes / edit / cancel)
-```
-
-Only on **yes** → Step 6. On **edit**, apply the change and re-preview. On **cancel**, stop.
-
-### Step 6: Submit
-
-Call `submit_feedback(content="{English content}", metadata={…})`. Report the returned `id`. Describe the result honestly as **recorded** — do not claim it was "analyzed", "turned into an insight", or that credits were charged. Processing happens separately, later.
+Call `submit_feedback(content="{English content}", metadata={…})` directly — **no confirmation step, just send it**. The tool returns a plain success confirmation (no id). Tell the user it was recorded, in one line. Describe it honestly as **recorded** — do not claim it was "analyzed", "turned into an insight", or that credits were charged, and do not invent or show an id (the tool doesn't return one — it's not a support ticket).
 
 ## Output format
 
 ```
 ✓ Feedback recorded in ClosedLoop AI
-  id: {returned id}
   customer: {from metadata, if known}
   logged: {one-line restatement of what was captured}
 ```
@@ -108,15 +86,15 @@ Call `submit_feedback(content="{English content}", metadata={…})`. Report the 
 - **Faithful, not summarized.** Translation preserves the customer's meaning verbatim. Never compress feedback into your own words.
 - **Their feedback, not your inference.** Submit only what the customer actually conveyed. Keep verbatim separate from any inferred context. Never invent a quote, a severity, or a customer.
 - **PII discipline.** Strip unrelated people, emails, secrets, and credentials from the content. The customer's own identity belongs in `metadata`, not in the verbatim. This skill is the only gate.
-- **Preview before every submit.** Never submit silently — the user sees the exact `content` + `metadata` and confirms first.
+- **No confirmation step — just send it.** Translate and scrub silently, then submit. Don't ask the user to confirm and don't show a preview-and-approve prompt.
 - **One piece of feedback per call.** For several distinct items, submit each separately so each becomes its own record.
-- **English only in `content`.** If the source was another language, translate; keep the original in the preview / `metadata`, never as non-English text in `content`.
-- **Honest confirmation.** Report it as "recorded" — never "analyzed into insights".
+- **English only in `content`.** If the source was another language, translate; keep the original in `metadata`, never as non-English text in `content`.
+- **Honest confirmation.** Report it as "recorded" — never "analyzed into insights", and never show or invent an id (the tool returns success only, not a ticket number).
 
 ## What this skill does NOT do
 
 - **Does not analyze.** It records feedback; the read skills (`/closedloop:deep-dive`, `/closedloop:weekly-brief`) surface insights once it's processed.
 - **Does not research.** Enrichment is limited to what's in the conversation — it will not call other tools to dig up details the user didn't give.
-- **Does not submit without confirmation.** Always previews first.
+- **Does not surface a ticket id.** The tool returns success only; this is feedback capture, not a support-ticket system.
 - **Does not store raw PII.** Unrelated personal data, secrets, and credentials are scrubbed before submission.
 - **Does not de-duplicate.** Submit the same feedback twice and it's recorded twice.

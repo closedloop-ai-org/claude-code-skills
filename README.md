@@ -103,7 +103,7 @@ Find every customer who asked for something you just shipped, generate personali
 
 ### `/closedloop:submit-feedback`
 
-Capture a piece of customer feedback into ClosedLoop AI — translate it to English, strip unrelated PII, preview it, then submit on your confirmation. The other half of the closed loop: get feedback in as cleanly as the other skills get insights out.
+Capture a piece of customer feedback into ClosedLoop AI — translate it to English, strip unrelated PII, and submit it. The other half of the closed loop: get feedback in as cleanly as the other skills get insights out.
 
 ```
 /closedloop:submit-feedback export keeps timing out on large reports
