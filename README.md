@@ -1,6 +1,6 @@
 # ClosedLoop AI Skills for Claude Code
 
-Turn every customer conversation into structured product insights — inside Claude Code. These skills connect to your ClosedLoop AI data so you can deep-dive into any topic, get a weekly intelligence brief, talk to a synthetic customer persona, prepare for calls, or analyze the competitive landscape.
+Turn every customer conversation into structured product insights — inside Claude Code. These skills connect to your ClosedLoop AI data so you can deep-dive into any topic, get a weekly intelligence brief, talk to a synthetic customer persona, prepare for calls, analyze the competitive landscape, or capture new customer feedback straight from a conversation.
 
 ## Prerequisites
 
@@ -23,7 +23,7 @@ Full setup guide: https://closedloop.sh/docs/mcp-server/overview
 ## Manual Install
 
 ```bash
-for skill in deep-dive weekly-brief synthetic-customer competitor-gap csm-prep pm-prep sales-playbook ship-notify; do
+for skill in deep-dive weekly-brief synthetic-customer competitor-gap csm-prep pm-prep sales-playbook ship-notify submit-feedback; do
   mkdir -p ~/.claude/skills/closedloop-$skill
   curl -so ~/.claude/skills/closedloop-$skill/SKILL.md \
     https://raw.githubusercontent.com/closedloop-ai-org/claude-code-skills/main/skills/$skill/SKILL.md
@@ -99,6 +99,15 @@ Find every customer who asked for something you just shipped, generate personali
 ```
 /closedloop:ship-notify CSV export feature
 /closedloop:ship-notify API rate limit fix
+```
+
+### `/closedloop:submit-feedback`
+
+Capture a piece of customer feedback into ClosedLoop AI — translate it to English, strip unrelated PII, preview it, then submit on your confirmation. The other half of the closed loop: get feedback in as cleanly as the other skills get insights out.
+
+```
+/closedloop:submit-feedback export keeps timing out on large reports
+/closedloop:submit-feedback log the SSO complaint from the call just now
 ```
 
 ## Requirements
