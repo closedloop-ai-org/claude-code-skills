@@ -25,11 +25,11 @@ Create a **notification watch**: a rule that alerts you when something happens i
      "subject": "insight",
      "trigger": { "kind": "threshold", "cadence": "daily", "metric": { "agg": "count", "window_days": <N> }, "op": "gte", "value": <K> },
      "when": { "predicate": "insight.category", "op": "equals", "value": "bug" },
-     "actions": [{ "type": "inbox", "config": {} }]
+     "actions": [{ "type": "slack_message", "config": { "channel_id": "<from the user>" } }]
    }
    ```
    - Map "N+ X in D days" → `value: N`, `window_days: D`, and a `when` predicate over the catalog (e.g. `insight.category = "bug"`, `insight.severity = "High"`, `insight.frustration_score >= 0.8`). Combine conditions with `AND` / `OR` when the user names more than one.
-   - **Delivery**: default to `inbox` (in-app). Use `slack_message` only if the user names a Slack channel — then put its channel id in `config.channel_id` (ask for it if you don't have it). `teams_dm` / `teams_channel` / `email` likewise.
+   - **Delivery**: ask where to send it — a Slack channel (`slack_message`, `config.channel_id`), Teams (`teams_dm` / `teams_channel`), email (`email`, `config.recipients`), or a webhook (`webhook`, `config.url`). Don't assume a destination — if the user didn't name one, ask. (Don't use `inbox`; in-app delivery isn't wired up yet.)
 3. **Validate** — call `validate_watch(rule=<ir>)`. If it returns errors, fix them against the catalog and re-validate. Don't proceed on errors.
 4. **Read it back and confirm.** Tell the user in one plain-English line what will be watched and how they'll be notified — e.g. *"I'll alert you in-app when 5+ bug insights arrive within 7 days. Create it?"* **Wait for a yes.** Never auto-create.
 5. **Create** — on confirmation, call `create_watch(rule=<ir>)`. Report the result in one line (it's saved and will notify them when it fires).
