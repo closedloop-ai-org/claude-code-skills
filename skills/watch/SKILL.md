@@ -13,12 +13,13 @@ Create a **notification watch**: a rule that alerts you when something happens i
 /closedloop:watch alert me when 5+ bug reports come in over a week
 /closedloop:watch ping me in #product when integration complaints spike
 /closedloop:watch let me know if we get 3+ high-severity issues in 3 days
+/closedloop:watch alert me in #cs when 3+ churn signals come in over two weeks
 ```
 
 ## What to do
 
 1. **Fetch the catalog** — call `get_watch_catalog`. It returns the exact predicates, operators, and values you may use. **Compile only from these keys** — never invent a field or value.
-2. **Compile the request into a rule IR.** Today the supported shape is a **threshold over product insights**:
+2. **Compile the request into a rule IR.** Two threshold shapes are supported — a **threshold over product insights** (`subject: "insight"`) or over **strategic-intelligence signals incl. churn** (`subject: "signal"`):
    ```json
    {
      "name": "<short label>",
@@ -29,6 +30,7 @@ Create a **notification watch**: a rule that alerts you when something happens i
    }
    ```
    - Map "N+ X in D days" → `value: N`, `window_days: D`, and a `when` predicate over the catalog (e.g. `insight.category = "bug"`, `insight.severity = "High"`, `insight.frustration_score >= 0.8`). Combine conditions with `AND` / `OR` when the user names more than one.
+   - **Churn / signals**: for churn use `subject: "signal"` with `when: { predicate: "signal.is_stated_churn", op: "is_true" }` (the canonical stated-churn predicate, backed by `strategic_intelligence` record types — never the dead `is_churn_risk` flag). Or filter `signal.type` directly (`churn_reason`, `general_dislike`, `competitor_mention`, …), `signal.mention_kind`, `signal.is_blocker`.
    - **Delivery**: ask where to send it — a Slack channel (`slack_message`, `config.channel_id`), Teams (`teams_dm` / `teams_channel`), email (`email`, `config.recipients`), or a webhook (`webhook`, `config.url`). Don't assume a destination — if the user didn't name one, ask. (Don't use `inbox`; in-app delivery isn't wired up yet.)
 3. **Validate** — call `validate_watch(rule=<ir>)`. If it returns errors, fix them against the catalog and re-validate. Don't proceed on errors.
 4. **Read it back and confirm.** Tell the user in one plain-English line what will be watched and how they'll be notified — e.g. *"I'll alert you in-app when 5+ bug insights arrive within 7 days. Create it?"* **Wait for a yes.** Never auto-create.
@@ -45,7 +47,11 @@ If these tools aren't available, the ClosedLoop AI MCP isn't connected — tell 
 
 ## Scope (today)
 
-Supported now: **threshold alerts on product insights** — counts of insights matching a category / severity / emotion / feature-area / frustration filter over a time window. If the user asks for something outside this (per-customer churn, deal-stage changes, competitor mentions, "X then Y" sequences), say what's supported today and that broader watches are coming — don't force-fit it into a shape that won't evaluate.
+Supported now: **threshold alerts** over two subjects, both counting over a time window:
+- **product insights** (`subject: "insight"`) — category / severity / emotion / feature-area / frustration / deal-blocker filters.
+- **strategic-intelligence signals** (`subject: "signal"`) — including **stated churn** (`signal.is_stated_churn`, or `signal.type` = `churn_reason` / `general_dislike`), competitor mentions (`signal.type`, `signal.mention_kind`), and blockers (`signal.is_blocker`).
+
+If the user asks for something outside this (per-account churn *state*, deal-stage changes, "X then Y" sequences), say what's supported today and that broader watches are coming — don't force-fit it into a shape that won't evaluate.
 
 ## Not this
 
