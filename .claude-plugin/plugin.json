@@ -1,7 +1,7 @@
 {
   "name": "closedloop-skills",
-  "description": "AI Product Discovery skills for Claude Code, powered by ClosedLoop AI. Deep-dive into any topic against all your product insights — every customer quote, pain point, business impact, and competitive signal extracted from your conversations.",
-  "version": "0.4.0",
+  "description": "AI Product Discovery skills for Claude Code, powered by ClosedLoop AI. Deep-dive into any topic against all your product insights \u2014 every customer quote, pain point, business impact, and competitive signal extracted from your conversations.",
+  "version": "0.4.1",
   "author": {
     "name": "ClosedLoop AI",
     "url": "https://closedloop.sh"

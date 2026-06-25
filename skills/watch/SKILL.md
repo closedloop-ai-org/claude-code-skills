@@ -29,7 +29,15 @@ Create a **notification watch**: a rule that alerts you when something happens i
      "actions": [{ "type": "slack_message", "config": { "channel_id": "<from the user>" } }]
    }
    ```
-   - Map "N+ X in D days" → `value: N`, `window_days: D`, and a `when` predicate over the catalog (e.g. `insight.category = "bug"`, `insight.severity = "High"`, `insight.frustration_score >= 0.8`). Combine conditions with `AND` / `OR` when the user names more than one.
+   - Map "N+ X in D days" → `value: N`, `window_days: D`, and a `when` condition over the catalog (e.g. `insight.category = "bug"`, `insight.severity = "High"`, `insight.frustration_score >= 0.8`).
+   - **`when` node shape (use this exactly).** A `when` is EITHER a leaf — `{ "predicate": "<key>", "op": "<op>", "value": <v> }` — OR a boolean group — `{ "op": "AND" | "OR" | "NOT", "conditions": [ <node>, … ] }` (`NOT` takes exactly one child). Nest freely. **It MUST be `op` + `conditions` — do NOT emit `{ "AND": [...] }` or `{ "combinator": "AND", ... }`; both fail validation.** Example — *critical bugs in checkout*:
+     ```json
+     { "op": "AND", "conditions": [
+       { "predicate": "insight.category", "op": "equals", "value": "bug" },
+       { "predicate": "insight.severity", "op": "equals", "value": "Critical" },
+       { "predicate": "insight.feature_area", "op": "contains", "value": "checkout" }
+     ] }
+     ```
    - **Churn / signals**: for churn use `subject: "signal"` with `when: { predicate: "signal.is_stated_churn", op: "is_true" }` (the canonical stated-churn predicate, backed by `strategic_intelligence` record types — never the dead `is_churn_risk` flag). Or filter `signal.type` directly (`churn_reason`, `general_dislike`, `competitor_mention`, …), `signal.mention_kind`, `signal.is_blocker`.
    - **Delivery**: ask where to send it — a Slack channel (`slack_message`, `config.channel_id`), Teams (`teams_dm` / `teams_channel`), email (`email`, `config.recipients`), or a webhook (`webhook`, `config.url`). Don't assume a destination — if the user didn't name one, ask. (Don't use `inbox`; in-app delivery isn't wired up yet.)
 3. **Validate** — call `validate_watch(rule=<ir>)`. If it returns errors, fix them against the catalog and re-validate. Don't proceed on errors.
