@@ -69,7 +69,7 @@ Same pagination.
 For EVERY insight ID: `get_insight(id="{id}")`
 For EVERY signal ID: `get_signal(id="{id}")`
 
-Do NOT skip this. Search results return 300-char truncated previews. You need full verbatim content, pain_point, workaround, competitor_gap, entities_competitors, emotion, frustration_score, kano_category, job_statement, is_deal_blocker, is_churn_risk, and for signals: intelligence_type, competitor_name, churn_urgency, satisfaction_level, quantified_impact, signal_strength.
+Do NOT skip this. Search results return 300-char truncated previews. You need full verbatim content, pain_point, workaround, competitor_gap, entities_competitors, emotion, frustration_score, kano_category, job_statement, is_deal_blocker, and for signals: intelligence_type, competitor_name, churn_urgency, satisfaction_level, quantified_impact, signal_strength. (Churn lives on signals, not insights: stated churn = `churn_reason` signals read with `churn_urgency`; the per-insight churn flag is dead and unmaintained.)
 
 Read in parallel batches to save time.
 
@@ -82,7 +82,7 @@ For each unique customer (or top 20-30 by mention count): `search_customers(quer
 This returns data that `get_insight` does NOT include:
 - Company profile: industry, country, employee_count, annual_revenue, segment
 - Deals: amount, stage, is_won/is_closed, pipeline
-- Deal blockers, churn risks, frustration for this company
+- Deal blockers, account churn state (churned / at-risk), frustration for this company
 
 From this compute: total revenue affected, won deal value, open pipeline at risk, industry breakdown, segment breakdown, size breakdown, geography.
 
@@ -90,7 +90,7 @@ From this compute: total revenue affected, won deal value, open pipeline at risk
 
 ### Step 4: Load key conversations for full context
 
-After reading all insights and signals, identify the 3-5 most important ones (highest severity, deal blockers, churn risks, or most compelling quotes). For each:
+After reading all insights and signals, identify the 3-5 most important ones (highest severity, deal blockers, stated churn, or most compelling quotes). For each:
 
 1. `list_conversations(customer_name="{customer_name}", source_type="calls", limit=3)` — find the actual call where this was said
 2. `get_conversation(id="{conversation_id}", source="{source}")` — load the full transcript
@@ -137,7 +137,7 @@ Trend: {growing/stable/declining} ({last 60 days count} vs {prior 60 days count}
 
 Severity: {exact counts} Critical, {n} High, {n} Medium, {n} Low
 Deal blockers: {n} ({customer names and deal amounts if known})
-Churn risks: {n} ({customer names if known})
+Stated churn: {n} churn_reason signals ({customer names if known}; urgency: {n} immediate, {n} considering)
 Avg frustration: {interpreted level, e.g. "moderate" or "high"}
 
 REVENUE IMPACT
@@ -166,7 +166,7 @@ compelling verbatim quotes with attribution.}
 
 FULL CONVERSATION CONTEXT
 -------------------------
-{For the 2-3 most critical insights (deal blockers, churn risks, or most
+{For the 2-3 most critical insights (deal blockers, stated churn, or most
 vivid quotes), show a longer excerpt from the actual conversation transcript.
 This gives the reader the back-and-forth, not just the extracted quote.}
 
@@ -196,7 +196,7 @@ STRATEGIC SIGNALS
 -----------------
 {Group by type. Only show types that have matches.}
 Satisfaction ({n}): "{quote}" -- {customer}
-Churn signals ({n}): "{quote}" -- {customer}
+Stated churn ({n} churn_reason): "{quote}" -- {customer} ({churn_urgency})
 Decision criteria ({n}): "{quote}" -- {customer}
 Competitor mentions ({n}): "{quote}" -- {customer}
 
