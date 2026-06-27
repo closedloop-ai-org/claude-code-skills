@@ -54,7 +54,7 @@ For the primary description AND each alternative phrasing:
 Merge all results, deduplicate by insight ID. This is the master list.
 
 For each unique insight:
-- `get_insight(id)` — read full content, pain_point, workaround, customer_name, reporter_name, frustration_score, is_deal_blocker, is_churn_risk, source_date
+- `get_insight(id)` — read full content, pain_point, workaround, customer_name, reporter_name, frustration_score, is_deal_blocker, source_date
 
 Filter out false positives: use judgment to discard insights where the customer was talking about something unrelated that happened to match keywords.
 
@@ -62,7 +62,7 @@ Group insights by customer_name. For each customer, extract:
 - Number of times they mentioned it
 - Date range (earliest to latest)
 - Most compelling verbatim quote (highest frustration, most specific)
-- Whether it was flagged as deal_blocker or churn_risk
+- Whether it was flagged as a deal blocker (account churn state is added from CRM in Agent 2)
 - Any workaround they described
 
 Write to `/tmp/ship-notify/customers.md`:
@@ -80,7 +80,7 @@ Extract per customer:
 - Deal value (won + pipeline)
 - Deal stage (closed-won, evaluation, churned, etc.)
 - Key contacts with titles and emails
-- Churn risk indicators
+- Account churn state (CRM: churned / at-risk), e.g. via `search_customers(churn_state=...)`
 
 Write to `/tmp/ship-notify/crm.md`:
 - Per-customer CRM profile
@@ -110,7 +110,7 @@ Read all 3 agent files. Assign each customer to a priority tier:
 | **P0 — Deal unblockers** | is_deal_blocker=true OR deal_stage is evaluation/negotiation | CSM personally reaches out within 24h |
 | **P1 — High-value existing** | deal_stage=closed-won AND high deal value or enterprise segment | Personalized email referencing their specific quote |
 | **P2 — Active customers** | deal_stage=closed-won, lower value | Personalized email, can be batch-sent |
-| **P3 — At-risk / churned** | deal_stage=churned OR is_churn_risk=true | Win-back email referencing "we heard you" |
+| **P3 — At-risk / churned** | deal_stage=churned OR account churn_state in (churned, at_risk) | Win-back email referencing "we heard you" |
 | **P4 — Prospects** | deal_stage in evaluation/trial/lost | Sales enablement brief for AE |
 
 ### Step 4: Generate outreach
@@ -125,7 +125,7 @@ SHIP NOTIFY: {feature description}
 
 SUMMARY
   {N} customers asked for this across {N} insights.
-  {N} deal blockers | {N} churn risks | {N} churned accounts
+  {N} deal blockers | {N} at-risk accounts | {N} churned accounts
   Total revenue affected: ${amount} (won) + ${amount} (pipeline)
 
 ==========================================================================

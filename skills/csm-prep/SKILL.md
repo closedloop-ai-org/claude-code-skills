@@ -58,16 +58,17 @@ Write to `/tmp/customer-prep/profile.md`:
 - Account snapshot line: name, segment, country, revenue, deal count
 - Key contacts: name, title (max 5)
 - Active deals: name, stage, amount, close date (max 3)
-- Account health numbers: insight_count, deal_blocker_count, churn_risk_count, avg_frustration
+- Account health numbers: insight_count, deal_blocker_count, account churn state (CRM: churned / at-risk / none), avg_frustration
 
-**Agent 2: Landmines (deal blockers + churn risks)**
+**Agent 2: Landmines (deal blockers + churn)**
 
-- `search_insights(customer_id="{id}", is_deal_blocker=true, limit=10)`
-- `search_insights(customer_id="{id}", is_churn_risk=true, limit=10)`
-- `get_insight(id)` for each — read full content
+- `search_insights(customer_id="{id}", is_deal_blocker=true, limit=10)` — `get_insight(id)` for each
+- `search_signals(customer_id="{id}", type="churn_reason", limit=10)` — stated churn from this customer's own conversations — `get_signal(id)` for each
+- Account churn state comes from `get_customer(id)` (Agent 1): note if the account is CRM-flagged churned or at-risk
 
-For each landmine, extract: title, severity, verbatim quote, reporter name, date.
-Deduplicate: if the same issue is both a deal blocker and churn risk, show once with both labels.
+For each deal-blocker insight, extract: title, severity, verbatim quote, reporter name, date.
+For each churn signal, extract: the churn reason, verbatim quote, speaker, date, urgency (if present).
+Deduplicate: if the same issue surfaces as both a deal blocker and a churn reason, show once with both labels.
 
 Write to `/tmp/customer-prep/landmines.md`:
 - Max 3 landmines, ranked by severity then recency
@@ -155,7 +156,7 @@ CUSTOMER PREP: {Company Name}                               {today's date}
 
 ACCOUNT
   {name} | {segment} | {country} | ${won_revenue} won | ${pipeline} open
-  {insight_count} insights | {blocker_count} blockers | {churn_count} churn risks
+  {insight_count} insights | {blocker_count} blockers | {churn: account churn state, or N stated-churn signals}
   Frustration: {interpreted level} | Last interaction: {date}
 
 CONTACTS
@@ -171,7 +172,7 @@ DEALS
 ================================================================================
 
 LANDMINES
-{Only if deal_blockers > 0 or churn_risks > 0. Otherwise omit entirely.}
+{Only if deal_blockers > 0, or any stated-churn signal / CRM churn state exists. Otherwise omit entirely.}
 
   {DEAL BLOCKER / CHURN RISK}: {title} ({severity})
   "{verbatim quote}" — {reporter}, {date}
