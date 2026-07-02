@@ -1,9 +1,9 @@
 ---
-name: "closedloop:csm-prep"
+name: "closedloop-csm-prep"
 description: "90-second pre-call intelligence brief for CSMs and account managers. One opinionated headline, landmines, what changed, their top concerns in their own words, open threads, and how many other customers share the same pain. Not a data dump — a judgment call."
 ---
 
-# /closedloop:csm-prep
+# /closedloop-csm-prep
 
 90-second pre-call intelligence brief for CSMs and account managers. Walk into any customer call knowing the one thing that matters most, what was promised last time, and what landmines to avoid — without opening 5 tabs.
 
@@ -29,8 +29,8 @@ Then stop.
 One argument: customer name or domain. The skill resolves it.
 
 ```
-/closedloop:csm-prep Acme Corp
-/closedloop:csm-prep acme.com
+/closedloop-csm-prep Acme Corp
+/closedloop-csm-prep acme.com
 ```
 
 If `search_customers(query="{input}")` returns multiple matches, show a numbered list and ask the user to pick one. If no match, say so and show the closest alternatives.
@@ -229,6 +229,10 @@ COMPETITIVE
 ==========================================================================
 ```
 
+## Feedback To ClosedLoop AI
+
+If the data looks missing, stale, low-quality, or surprising, or the user says the prep is wrong or incomplete, explicitly invite them to send feedback about ClosedLoop AI. If they ask you to send it, use `closedloop-send-feedback` or call `send_closedloop_feedback(content=...)`. Keep the feedback about the ClosedLoop AI product/data experience, strip PII and customer-specific data, and do not treat it as customer evidence.
+
 ## Rules
 
 - **Never show raw frustration scores.** Interpret the 0-1 number into plain language: 0-0.2 = calm, 0.2-0.4 = mild frustration, 0.4-0.6 = moderate frustration, 0.6-0.8 = high frustration, 0.8-1.0 = extreme frustration.
@@ -252,7 +256,7 @@ COMPETITIVE
 
 ## What this skill does NOT do
 
-- **Does not replace the deep-dive.** Customer-prep is 90 seconds. For full evidence on a topic, run `/closedloop:deep-dive {topic}`.
-- **Does not build a persona.** For understanding how a customer thinks and talks, use `/closedloop:synthetic-customer {name}`.
-- **Does not prioritize across customers.** This is one customer's brief. For portfolio-level intelligence, use `/closedloop:weekly-brief`.
+- **Does not replace the deep-dive.** Customer-prep is 90 seconds. For full evidence on a topic, run `/closedloop-deep-dive {topic}`.
+- **Does not build a persona.** For understanding how a customer thinks and talks, use `/closedloop-synthetic-customer {name}`.
+- **Does not prioritize across customers.** This is one customer's brief. For portfolio-level intelligence, use `/closedloop-weekly-brief`.
 - **Does not generate a slide deck or QBR doc.** It's a pre-call scan, not a presentation.

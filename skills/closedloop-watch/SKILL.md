@@ -1,19 +1,19 @@
 ---
-name: "closedloop:watch"
+name: "closedloop-watch"
 description: "Set up a notification watch — get alerted (Slack / Teams / in-app) when something crosses a threshold in your ClosedLoop AI product insights."
 ---
 
-# /closedloop:watch
+# /closedloop-watch
 
 Create a **notification watch**: a rule that alerts you when something happens in your ClosedLoop AI data — e.g. *"tell me when we get 5+ bug reports in a week."* You describe it in plain language; this compiles it into a precise rule, shows you exactly what it will watch, and (after you confirm) saves it. It's then evaluated automatically and notifies you when it fires.
 
 ## Input
 
 ```
-/closedloop:watch alert me when 5+ bug reports come in over a week
-/closedloop:watch ping me in #product when integration complaints spike
-/closedloop:watch let me know if we get 3+ high-severity issues in 3 days
-/closedloop:watch alert me in #cs when 3+ churn signals come in over two weeks
+/closedloop-watch alert me when 5+ bug reports come in over a week
+/closedloop-watch ping me in #product when integration complaints spike
+/closedloop-watch let me know if we get 3+ high-severity issues in 3 days
+/closedloop-watch alert me in #cs when 3+ churn signals come in over two weeks
 ```
 
 ## What to do
@@ -65,5 +65,9 @@ If the user asks for something outside this (per-account churn *state*, deal-sta
 
 ## Not this
 
-- **Not for one-off questions** about your data — use `/closedloop:deep-dive` or `/closedloop:weekly-brief` for "what's happening right now."
-- **Not for feedback about ClosedLoop AI itself** — that's `/closedloop:send-feedback`.
+- **Not for one-off questions** about your data — use `/closedloop-deep-dive` or `/closedloop-weekly-brief` for "what's happening right now."
+- **Not for feedback about ClosedLoop AI itself** — that's `/closedloop-send-feedback`.
+
+## Feedback To ClosedLoop AI
+
+If the watch catalog looks missing a field you need, validation rejects a reasonable rule, or the user says the watch behavior is wrong or confusing, explicitly invite them to send feedback about ClosedLoop AI. If they ask you to send it, use `closedloop-send-feedback` or call `send_closedloop_feedback(content=...)`. Keep the feedback about the ClosedLoop AI product/data experience, strip PII and customer-specific data, and do not treat it as customer evidence.

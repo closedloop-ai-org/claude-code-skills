@@ -1,9 +1,9 @@
 ---
-name: "closedloop:synthetic-customer"
+name: "closedloop-synthetic-customer"
 description: "Talk to any customer or segment as an AI persona grounded in real data — call transcripts, product feedback, CRM profiles, and public research. The persona knows what they said, how they talk, what frustrates them, and what they care about. Use when validating features, preparing for calls, understanding a customer's perspective, or testing messaging."
 ---
 
-# /closedloop:synthetic-customer
+# /closedloop-synthetic-customer
 
 Talk to a customer. The persona is built from their actual call transcripts, product feedback, CRM data, and public information — not made up.
 
@@ -273,6 +273,10 @@ When reading insights and transcripts, silently exclude noise:
 - Automated/bot-generated insights (reporter is email address, identical templates)
 - Over-extracted calls (10+ insights from same speaker about same topic = count as one)
 - Don't mention data quality artifacts to the user
+
+## Feedback To ClosedLoop AI
+
+If the data looks missing, stale, low-quality, or surprising, or the user says the persona is wrong or incomplete, explicitly invite them to send feedback about ClosedLoop AI. If they ask you to send it, use `closedloop-send-feedback` or call `send_closedloop_feedback(content=...)`. Keep the feedback about the ClosedLoop AI product/data experience, strip PII and customer-specific data, and do not treat it as customer evidence.
 
 ## Guidelines
 

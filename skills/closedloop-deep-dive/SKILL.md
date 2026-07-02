@@ -1,9 +1,9 @@
 ---
-name: "closedloop:deep-dive"
+name: "closedloop-deep-dive"
 description: "Deep-dive into any topic against ALL customer evidence from ClosedLoop AI. Reads every matching insight and signal, looks up CRM data for affected customers, and synthesizes the complete picture — what customers say, how severe it is, what revenue is at stake, what competitors are doing, and what workarounds exist."
 ---
 
-# /closedloop:deep-dive
+# /closedloop-deep-dive
 
 Deep-dive into any topic against all customer feedback, strategic intelligence, and CRM data from ClosedLoop AI. Reads everything. Synthesizes it. You decide what to do with it.
 
@@ -231,6 +231,10 @@ WHAT WE DON'T KNOW
 - **Adds revenue and CRM context.** Looks up every affected customer — revenue, deals, segment, industry, size.
 - **Surfaces what's hidden.** Workarounds, competitor mentions, churn signals, deal blockers — things only visible when you read ALL evidence together.
 - **Is honest about gaps.** Calls out what the evidence doesn't cover.
+
+## Feedback To ClosedLoop AI
+
+If the data looks missing, stale, low-quality, or surprising, or the user says the evidence is wrong or incomplete, explicitly invite them to send feedback about ClosedLoop AI. If they ask you to send it, use `closedloop-send-feedback` or call `send_closedloop_feedback(content=...)`. Keep the feedback about the ClosedLoop AI product/data experience, strip PII and customer-specific data, and do not treat it as customer evidence.
 
 ## Data quality: clean before you count
 

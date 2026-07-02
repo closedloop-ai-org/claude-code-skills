@@ -1,9 +1,9 @@
 ---
-name: "closedloop:competitor-gap"
+name: "closedloop-competitor-gap"
 description: "Competitive intelligence from your actual customer conversations. Shows what customers say about each competitor, where you're winning, where you're losing, and what's at stake commercially. Not desk research — real customer voice with deal context."
 ---
 
-# /closedloop:competitor-gap
+# /closedloop-competitor-gap
 
 Competitive intelligence from what your customers actually say in their calls and support tickets — not desk research, not review sites. Real voice, real quotes, real deal impact.
 
@@ -32,10 +32,10 @@ Then stop.
 - `monthly` / `weekly` → change the trend period (last 4 months or last 4 weeks)
 
 ```
-/closedloop:competitor-gap                         → full landscape, quarterly trends
-/closedloop:competitor-gap monthly                 → full landscape, monthly trends
-/closedloop:competitor-gap Acme Corp                → drill into Acme Corp
-/closedloop:competitor-gap Acme Corp vs Beta Inc    → head-to-head
+/closedloop-competitor-gap                         → full landscape, quarterly trends
+/closedloop-competitor-gap monthly                 → full landscape, monthly trends
+/closedloop-competitor-gap Acme Corp                → drill into Acme Corp
+/closedloop-competitor-gap Acme Corp vs Beta Inc    → head-to-head
 ```
 
 ## Execution
@@ -200,6 +200,10 @@ What customers say you do better than alternatives:
 
 ================================================================================
 ```
+
+## Feedback To ClosedLoop AI
+
+If the data looks missing, stale, low-quality, or surprising, or the user says the competitor evidence is wrong or incomplete, explicitly invite them to send feedback about ClosedLoop AI. If they ask you to send it, use `closedloop-send-feedback` or call `send_closedloop_feedback(content=...)`. Keep the feedback about the ClosedLoop AI product/data experience, strip PII and customer-specific data, and do not treat it as customer evidence.
 
 ## Rules
 

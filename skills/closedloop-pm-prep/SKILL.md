@@ -1,9 +1,9 @@
 ---
-name: "closedloop:pm-prep"
+name: "closedloop-pm-prep"
 description: "Pre-call discovery brief for product managers. Not account health — learning goals, knowledge gaps, data-grounded questions, and whether this customer's pain is a market signal or an outlier. Turns a customer call into a research instrument."
 ---
 
-# /closedloop:pm-prep
+# /closedloop-pm-prep
 
 Pre-call discovery brief for product managers. Not "here's what this customer said before" — but "here's what you can learn from this call, what you already know from other customers, and what questions to ask."
 
@@ -29,7 +29,7 @@ Then stop.
 Always starts with a company name. Person selection happens in a second step.
 
 ```
-/closedloop:pm-prep Acme Corp
+/closedloop-pm-prep Acme Corp
 ```
 
 The skill resolves the company, runs the full brief, and shows a numbered contact list at the end. The user can then pick names to get per-person prep added.
@@ -345,9 +345,9 @@ Type "more on {first name}" for full dossier: all quotes by topic,
 recurring questions, style analysis, and detailed knowledge boundary.
 
 EXPLORE MORE
-  - "{Suggestion 1 — a relevant follow-up using /closedloop:deep-dive}"
-  - "{Suggestion 2 — a relevant follow-up using /closedloop:synthetic-customer}"
-  - "{Suggestion 3 — a relevant follow-up using /closedloop:competitor-gap}"
+  - "{Suggestion 1 — a relevant follow-up using /closedloop-deep-dive}"
+  - "{Suggestion 2 — a relevant follow-up using /closedloop-synthetic-customer}"
+  - "{Suggestion 3 — a relevant follow-up using /closedloop-competitor-gap}"
 
 {3 suggestions grounded in what was discovered during THIS brief.
  Each shows the exact command to run. Never use hardcoded topic examples
@@ -378,6 +378,10 @@ COMPETITIVE CONTEXT
 ==========================================================================
 ```
 
+## Feedback To ClosedLoop AI
+
+If the data looks missing, stale, low-quality, or surprising, or the user says the prep is wrong or incomplete, explicitly invite them to send feedback about ClosedLoop AI. If they ask you to send it, use `closedloop-send-feedback` or call `send_closedloop_feedback(content=...)`. Keep the feedback about the ClosedLoop AI product/data experience, strip PII and customer-specific data, and do not treat it as customer evidence.
+
 ## Rules
 
 - **Never show raw frustration scores.** Interpret the 0-1 number into plain language: 0-0.2 = calm, 0.2-0.4 = mild frustration, 0.4-0.6 = moderate frustration, 0.6-0.8 = high frustration, 0.8-1.0 = extreme frustration.
@@ -405,8 +409,8 @@ COMPETITIVE CONTEXT
 
 ## What this skill does NOT do
 
-- **Does not show account health, renewal dates, or deal status.** That's `/closedloop:csm-prep`.
-- **Does not replace the deep-dive.** For full evidence on a topic, run `/closedloop:deep-dive {topic}`.
-- **Does not build a persona.** For understanding how a customer thinks, use `/closedloop:synthetic-customer {name}`.
+- **Does not show account health, renewal dates, or deal status.** That's `/closedloop-csm-prep`.
+- **Does not replace the deep-dive.** For full evidence on a topic, run `/closedloop-deep-dive {topic}`.
+- **Does not build a persona.** For understanding how a customer thinks, use `/closedloop-synthetic-customer {name}`.
 - **Does not generate a spec or PRD.** It's pre-call prep, not a planning document.
 - **Does not tell the PM what to build.** It shows what customers need. The PM decides.

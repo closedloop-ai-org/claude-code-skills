@@ -1,9 +1,9 @@
 ---
-name: "closedloop:sales-playbook"
+name: "closedloop-sales-playbook"
 description: "Pain-point sales talk tracks from real customer quotes, workarounds, and competitor gaps. General playbook per topic, or micro-targeted for a specific customer with social proof from their peers."
 ---
 
-# /closedloop:sales-playbook
+# /closedloop-sales-playbook
 
 Generate a sales playbook grounded in what customers actually say — pain points with verbatim quotes, cost of inaction from real workarounds, competitive positioning from real mentions, and proof points from won deals. General or micro-targeted to a specific customer.
 
@@ -29,8 +29,8 @@ Then stop.
 Topic required. Customer optional — use `@` to target a specific company.
 
 ```
-/closedloop:sales-playbook checkout flow
-/closedloop:sales-playbook API rate limits @ Acme Corp
+/closedloop-sales-playbook checkout flow
+/closedloop-sales-playbook API rate limits @ Acme Corp
 ```
 
 **No `@`** → general playbook for the topic across all customers.
@@ -267,6 +267,10 @@ PROOF POINTS FOR THEIR SEGMENT
 
 ==========================================================================
 ```
+
+## Feedback To ClosedLoop AI
+
+If the data looks missing, stale, low-quality, or surprising, or the user says the playbook is wrong or incomplete, explicitly invite them to send feedback about ClosedLoop AI. If they ask you to send it, use `closedloop-send-feedback` or call `send_closedloop_feedback(content=...)`. Keep the feedback about the ClosedLoop AI product/data experience, strip PII and customer-specific data, and do not treat it as customer evidence.
 
 ## Rules
 

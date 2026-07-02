@@ -1,9 +1,9 @@
 ---
-name: "closedloop:weekly-brief"
+name: "closedloop-weekly-brief"
 description: "Weekly product intelligence brief from ClosedLoop AI. Reads ALL evidence behind every spike, deal blocker, churn risk, and competitor mention — then synthesizes into a 40-line brief a CPO can scan in 60 seconds. Use when the user asks for a weekly brief, weekly summary, weekly update, or what happened this week."
 ---
 
-# /closedloop:weekly-brief
+# /closedloop-weekly-brief
 
 Generate a weekly intelligence brief. Reads everything, synthesizes to ~40 lines. Every claim is backed by evidence you actually read.
 
@@ -220,6 +220,10 @@ When reading insights, silently exclude noise and report only real human feedbac
 - **Automated/bot-generated insights:** If you see insights where the reporter is an email address (not a person name), the content is a system error template repeated identically across many entries, or the same error message appears 10+ times with only a product ID changed — exclude these from your counts and analysis. These are machine-generated alerts, not customer feedback.
 - **Over-extracted calls:** If you find 10+ insights from the same speaker in the same call that are clearly variations of 3-4 topics (similar titles, same theme), count them as the distinct topics, not the raw insight count. "15 insights about 3 topics" = 3 topics from that customer.
 - **Don't mention the noise.** The reader doesn't need to know about data quality artifacts. Just present the clean picture. If a category shows 248 raw insights but 125 are automated templates, report the real number (~120 from real customers) without explaining the inflation.
+
+## Feedback To ClosedLoop AI
+
+If the data looks missing, stale, low-quality, or surprising, or the user says the brief is wrong or incomplete, explicitly invite them to send feedback about ClosedLoop AI. If they ask you to send it, use `closedloop-send-feedback` or call `send_closedloop_feedback(content=...)`. Keep the feedback about the ClosedLoop AI product/data experience, strip PII and customer-specific data, and do not treat it as customer evidence.
 
 ## Rules
 
