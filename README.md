@@ -25,7 +25,7 @@ Full setup guide: https://closedloop.sh/docs/mcp-server/overview
 ```bash
 for skill in closedloop-deep-dive closedloop-weekly-brief closedloop-synthetic-customer \
   closedloop-competitor-gap closedloop-csm-prep closedloop-pm-prep closedloop-sales-playbook \
-  closedloop-ship-notify closedloop-watch closedloop-send-feedback \
+  closedloop-ship-notify closedloop-scope-guard closedloop-watch closedloop-send-feedback \
   closedloop-product-ambassadors closedloop-product-ambassador-outreach \
   closedloop-customer-proof closedloop-customer-proof-outreach closedloop-sales-proof \
   closedloop-reference-customers closedloop-case-study-scout closedloop-proof-permissions; do
@@ -148,6 +148,15 @@ Find every customer who asked for something you just shipped and draft personali
 ```
 /closedloop-ship-notify CSV export feature
 /closedloop-ship-notify API rate limit fix
+```
+
+### `/closedloop-scope-guard`
+
+Check a spec, PRD, or ticket against customer evidence *before* it gets built. Shows which requirements customers actually asked for, which have nothing behind them, and which customer needs the spec misses. Uses `check_scope_evidence`; read only, and it never tells you not to build something. An absence comes with the coverage context needed to read it honestly.
+
+```
+/closedloop-scope-guard check this PRD against customer evidence
+/closedloop-scope-guard does anyone actually want the things in ENG-1204?
 ```
 
 ### `/closedloop-watch`
