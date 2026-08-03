@@ -1,6 +1,6 @@
 ---
 name: "closedloop-scope-guard"
-description: "Check a spec, PRD, or ticket against customer evidence before it gets built. Shows which requirements customers actually asked for, which have no evidence behind them, and which customer needs the spec misses. Uses check_scope_evidence. Read only; never recommends against building anything."
+description: "Check a spec, PRD, or ticket against customer evidence before it gets built, and say what to change about it: which requirements to sharpen and how, which to split or merge, which customer needs the spec misses, and which have no evidence behind them. Uses check_scope_evidence. Read only; never recommends against building anything."
 ---
 
 # ClosedLoop AI Scope Guard
@@ -140,13 +140,54 @@ a reader who disagrees with one theme can discount that line and keep the rest. 
 lines into a single number for the requirement, and never present a theme's numbers without its
 name.
 
+## Say what changes about the spec
+
+Everything above tells the reader what customers said. **This section is the only part that
+tells them what to do next, and it is required.** Without it you have handed someone an
+organised list and left the actual work — deciding what the spec should now say — exactly where
+it was. End every run here.
+
+Under a `WHAT TO CHANGE` heading, one line per requirement, in the imperative, numbered to match
+the decomposition. Each verdict must be grounded in something the tool returned — a verbatim
+quote, the matched theme's own `description`, or a `missing_from_scope` entry — and must name
+that grounding inline. Never derive a verdict from the spec's own wording, from the theme title
+alone, or from what you assume the product already does.
+
+Each verdict below is a rule with a boundary. Read both halves before assigning one.
+
+- **Sharpen** — the accepted evidence describes the need more precisely than the requirement
+  does, so building the line as written could leave the described problem unfixed. Say which
+  words to change and to what. Boundary: a requirement that is merely BROADER than one quote is
+  not automatically imprecise; the test is whether a reasonable implementation of the line as
+  written would miss what the evidence describes. This is the highest-value verdict, because a
+  requirement can be genuinely well covered and still be wrong in the detail that matters.
+- **Split** — the accepted evidence for one requirement describes two mechanics that would be
+  built and tested separately. Name both. Boundary: two quotes about the same mechanic in
+  different words are not a split; two symptoms of one cause are not a split.
+- **Merge** — customers describe two of your requirements as steps in one workflow, so scoping
+  them apart ships two half-answers. Boundary: requirements that merely share a matched theme
+  are not a merge — retrieval groups by topic, and a topic is not a workflow.
+- **Add** — a `missing_from_scope` entry names a need in this area no requirement covers. Give
+  its numbers. Boundary: only from that field. Never invent a gap by reasoning about what the
+  spec "ought" to include.
+- **No evidence** — nothing in the returned feedback describes this requirement. State it with
+  the coverage verdict and stop. Boundary: this reports an absence, it never recommends
+  removing anything — see Rules.
+- **Build as written** — covered, precise, nothing to change. Say so in one line rather than
+  padding it.
+
+Assign exactly one verdict per requirement. Where two seem to apply, prefer the one that changes
+the most about what gets built.
+
 ## Feedback To ClosedLoop AI
 
 If the data looks missing, stale, low-quality, or surprising, or the user says a requirement was matched or missed wrongly, explicitly invite them to send feedback about ClosedLoop AI. If they ask you to send it, use `closedloop-send-feedback` or call `send_closedloop_feedback(content=...)`. Keep the feedback about the ClosedLoop AI product/data experience, strip PII and customer-specific data, and do not treat it as customer evidence.
 
 ## Rules
 
-- Never say "do not build this". A weak match may be a compliance need, a platform bet, or something nobody has been asked about. Report it with its coverage; the build decision is the user's.
+- **Always end with "What to change".** A run that stops at the evidence has done half the job: the reader still has to work out what the spec should now say, which is the work they came to you for. Every requirement gets a verdict.
+- Never say "do not build this". A weak match may be a compliance need, a platform bet, or something nobody has been asked about — support channels are where people report what is broken, not where they ask for what they are contractually required to have. Report it with its coverage; the build decision is the user's. This is exactly why "no evidence" is a verdict and "cut it" is not.
+- **A verdict must quote its evidence.** "Sharpen this" with nothing under it is an opinion. Every instruction cites the quote, theme description or `missing_from_scope` entry it came from, so the reader can disagree with the specific line rather than the whole report.
 - Never present a number without the theme name it came from, and never sum the per-theme numbers into a requirement total — the themes can be different needs, and their insights can overlap.
 - `match_strength` is a retrieval hint, never a verdict. You decide covered / partly / not covered by reading the theme names, and you say which you rejected.
 - Never render a weak match without its coverage sentence.
