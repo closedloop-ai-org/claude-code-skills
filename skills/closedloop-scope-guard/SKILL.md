@@ -85,16 +85,25 @@ decide:
 - **partly covered**: a matched theme is adjacent but not the same thing (say what the gap is).
 - **not covered**: no matched theme is about this requirement, whatever their similarity.
 
+**Every number and every quote belongs to a theme, and there is no requirement-level total.**
+That is deliberate. One requirement routinely matches several *different* needs — a request to
+export in bulk can come back matched to an export theme, a bulk-*edit* theme and an *import*
+theme — so a combined figure would assert they are the same need. Rejecting a theme therefore
+just drops its line; there is nothing to correct.
+
+**Never add the per-theme numbers together.** One insight can belong to two themes, so the
+per-theme counts overlap and their sum overstates the evidence. Report each accepted theme's
+own numbers.
+
 Two failure shapes to expect, both real:
 
 - A requirement spans a big broad theme *and* a small niche one. Both come back; the broad one
   usually carries the evidence that matters. Do not report only the first.
 - A requirement nobody has raised still returns themes, because something is always nearest.
   "Exports are signed with a customer-supplied PGP key" matching *Exports time out on large
-  accounts* is a **not covered**, not a weak yes. Reject it out loud rather than passing the
-  count through. When nothing clears the bar at all the tool returns `nearest_themes` with no
-  counts and no quotes: report that as a genuine absence, and never borrow a number from a
-  theme you rejected.
+  accounts* is a **not covered**, not a weak yes. Reject it out loud rather than passing its
+  numbers through. When nothing clears the bar at all the tool returns `nearest_themes` with no
+  counts and no quotes: report that as a genuine absence.
 
 State which themes you accepted and which you rejected. A reader who disagrees with you can
 only do so if they can see what you discarded.
@@ -108,12 +117,15 @@ SCOPE GUARD: {area}
 {your count} of {summary.requirements_checked} requirements are covered by what customers raised.
 
 1. {requirement}  [covered]
-   {insight_count} insights, {customer_count} customers, {deal_blocker_count} deal blockers
-   Matched themes:
-     - {matched_themes[0].theme} ({matched_themes[0].insight_count} insights, {matched_themes[0].customer_count} customers)
-     - {matched_themes[1].theme} ({matched_themes[1].insight_count} insights, {matched_themes[1].customer_count} customers)
-   "{top_evidence[0].quote}"
-   {top_evidence[0].account_name}, {top_evidence[0].at}
+   {matched_themes[0].theme}
+     {matched_themes[0].insight_count} insights, {matched_themes[0].customer_count} customers, {matched_themes[0].deal_blocker_count} deal blockers
+     "{matched_themes[0].top_evidence[0].quote}"
+     {matched_themes[0].top_evidence[0].account_name}, {matched_themes[0].top_evidence[0].at}
+   {matched_themes[1].theme}
+     {matched_themes[1].insight_count} insights, {matched_themes[1].customer_count} customers
+     "{matched_themes[1].top_evidence[0].quote}"
+     {matched_themes[1].top_evidence[0].account_name}, {matched_themes[1].top_evidence[0].at}
+   Rejected: {matched_themes[2].theme} — about {what it is actually about}, not this requirement.
 
 3. {requirement}  [not covered]
    Nothing matched. Nearest was {nearest_themes[0].theme}, which is about something else.
@@ -123,9 +135,10 @@ NOT IN THE SPEC
 - {need} ({insight_count} insights, {customer_count} customers)
 ```
 
-**Always list the theme names you accepted.** They are what makes your judgment checkable, and
-a count without them reads as support the requirement may not have. When you reject a theme,
-say so and drop its evidence from the total rather than quietly keeping the number.
+**Every figure sits under the theme it came from.** That is what makes your judgment checkable:
+a reader who disagrees with one theme can discount that line and keep the rest. Never merge the
+lines into a single number for the requirement, and never present a theme's numbers without its
+name.
 
 ## Feedback To ClosedLoop AI
 
@@ -134,7 +147,7 @@ If the data looks missing, stale, low-quality, or surprising, or the user says a
 ## Rules
 
 - Never say "do not build this". A weak match may be a compliance need, a platform bet, or something nobody has been asked about. Report it with its coverage; the build decision is the user's.
-- Never present a total without the theme names that produced it, and never carry a rejected theme's evidence into a total.
+- Never present a number without the theme name it came from, and never sum the per-theme numbers into a requirement total — the themes can be different needs, and their insights can overlap.
 - `match_strength` is a retrieval hint, never a verdict. You decide covered / partly / not covered by reading the theme names, and you say which you rejected.
 - Never render a weak match without its coverage sentence.
 - Quote customers verbatim and name them. Never paraphrase a quote into a stronger claim.
