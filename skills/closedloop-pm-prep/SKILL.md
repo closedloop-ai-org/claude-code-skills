@@ -166,7 +166,7 @@ For each person, extract a FULL profile:
 - Are their concerns escalating, stable, or cooling?
 - Are they raising new topics or repeating the same ones?
 - Is their frustration level increasing, flat, or decreasing?
-- Mention count by month (e.g., "Mar: 8, Feb: 5, Jan: 3 — escalating")
+- Mention count by month (e.g., "Mar: {n}, Feb: {n}, Jan: {n} — escalating")
 
 **All open threads for this person:**
 - What was promised TO them (by your team)
@@ -212,7 +212,7 @@ LEARNING GOAL
 {What can this call teach you? Written LAST, after reading all evidence.
  Frame as a hypothesis to test or a knowledge gap to fill.
  Examples:
- - "114 customers report dashboard crashes but we don't know if the manual
+ - "{N} customers report dashboard crashes but we don't know if the manual
    spreadsheet workaround is acceptable or deal-breaking. This call can answer that."
  - "This customer asked for custom reporting with external data — 3 others
    mentioned similar needs. Test whether the underlying job is 'build
@@ -245,7 +245,7 @@ WHAT WE KNOW FROM OTHERS
   | {need 3} | {n} of {total} | {%} | #{rank} or "not in top 20" |
 
   {Interpretation: "Their top 2 concerns are the platform's top 2 concerns.
-   Their third concern is niche — only 12 customers, likely edge case."
+   Their third concern is niche — only {n} customers, likely edge case."
    Or: "All 3 concerns are unique to this account — outlier, not pattern."}
 
 WHAT WE DON'T KNOW

@@ -141,9 +141,9 @@ Period: {granularity} ({P1 label} → {P4 label})
 THREAT RANKING
 --------------
   #  Competitor       {P1}  {P2}  {P3}  {P4}  Total  Threat  Trend
-  1. {name}            35    23    18    12     88    HIGH    cooling
-  2. {name}             0     2     6    11     19    MEDIUM  accelerating
-  3. {name}             5     4     6     5     20    LOW     stable
+  1. {name}           {n}   {n}   {n}   {n}   {tot}  HIGH    cooling
+  2. {name}           {n}   {n}   {n}   {n}   {tot}  MEDIUM  accelerating
+  3. {name}           {n}   {n}   {n}   {n}   {tot}  LOW     stable
   ...
   {Competitors with 1-2 total mentions: one line, no drill}
 
@@ -214,9 +214,9 @@ If the data looks missing, stale, low-quality, or surprising, or the user says t
 - **Customer voice only.** Every claim must come from what a customer said, not from desk research about the competitor. If nobody mentioned a competitor's feature, don't invent it.
 - **Fact-Impact-Act.** For every gap: what was said (fact), why it matters commercially (impact), what to do about it (the reader decides the act — we provide the evidence).
 - **"What we do better" is mandatory.** Never produce a competitive brief that only shows weaknesses. If you can't find explicit advantages, say so — don't skip the section.
-- **Intent matters more than volume.** 3 "switching-to" mentions from $200K accounts are more dangerous than 30 "comparing features" mentions from free-tier users.
+- **Intent matters more than volume.** A handful of "switching-to" mentions from high-ARR accounts are more dangerous than many "comparing features" mentions from free-tier users.
 - **Thin evidence gets one line.** Competitors with 1-2 mentions appear in the threat table with their quote inline. No separate drill section.
-- **Trends as one word.** Accelerating / stable / cooling / new / gone. Computed from the 4-period trajectory, not just current vs previous. A competitor going 0→2→6→11 is "accelerating" even if 11 seems low.
+- **Trends as one word.** Accelerating / stable / cooling / new / gone. Computed from the 4-period trajectory, not just current vs previous. A competitor whose mentions rise across all four periods is "accelerating" even if the latest count seems low.
 - **Load transcripts selectively.** Maximum 3 transcripts total — only for deal blockers, churn risks, or the most vivid comparison moments.
 - **Anti-paranoia guardrail.** Every feature gap in the output should be traceable to a customer asking for it, not just a competitor shipping it. If customers don't care about a competitor's feature, it doesn't belong in this brief.
 - **120-150 lines.** Enough depth for the top 3 competitors plus landscape. Not a 50-page report.

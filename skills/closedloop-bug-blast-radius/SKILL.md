@@ -1,6 +1,6 @@
 ---
 name: "closedloop-bug-blast-radius"
-description: "Answer how important a bug is: who reported it, how badly, what it is worth, and whether it is still happening. Uses get_bug_blast_radius. Read only; reflects reported pain."
+description: "Answer how important a bug is: who reported it, how badly, what it is worth, and when it was last reported. Uses get_bug_blast_radius. Read only; reflects reported pain."
 ---
 
 # ClosedLoop AI Bug Blast Radius
@@ -47,7 +47,7 @@ Read `insights[]`. Semantic retrieval pulls in adjacent complaints — a differe
 
 Then report both numbers:
 
-> 12 customers reported this. I excluded 2 (Acme, Globex) whose evidence is about expired cards, not saved-card decline — 10 customers, €410K.
+> {total} customers reported this. I excluded {k} ({names}) whose evidence is about expired cards, not saved-card decline — {remaining} customers, {ARR after exclusion}.
 
 **Check `coverage.totals_decomposable` before you subtract anything.**
 

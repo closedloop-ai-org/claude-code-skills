@@ -119,7 +119,7 @@ For EACH category that spiked >30%, same split:
 
 After reading all these insights, write to `/tmp/wb-spikes.md`:
 - For each spike: what's driving it FROM SUPPORT (what's breaking) vs FROM CALLS (what customers are asking for)
-- One-sentence interpretation per spike that names both sides: "Integrations (248): 180 from support — third-party integration errors and automated webhook failures. 68 from calls — customers asking for new integrations and better access controls."
+- One-sentence interpretation per spike that names both sides: "Integrations ({total}): {n} from support — third-party integration errors and automated webhook failures. {n} from calls — customers asking for new integrations and better access controls."
 - Identify if automated sources (webhook errors, automated alerts) inflate the support numbers
 - Identify if a single onboarding call inflates the calls numbers
 - Note cross-spike patterns (same customers appearing in multiple spikes)
@@ -210,10 +210,10 @@ COMPETITIVE
 This is the most important part. It goes at the top but you write it LAST — after reading all 4 agent files. It should read like a news lede:
 
 Good example:
-"Rough week on the support side — two critical outages took down checkout and payment processing. A key account's migration is blocked by import gaps. But the calls tell a different story: feature requests surged (+49%) as customers ramp up for Q2, asking for team management and search performance improvements. The fix-vs-build tension is real: 66% of this week's volume is support fires, 34% is strategic product demand."
+"Rough week on the support side — two critical outages took down checkout and payment processing. A key account's migration is blocked by import gaps. But the calls tell a different story: feature requests surged (+{X}%) as customers ramp up for Q2, asking for team management and search performance improvements. The fix-vs-build tension is real: {X}% of this week's volume is support fires, {Y}% is strategic product demand."
 
 Bad example:
-"This week there were 1,423 insights from 258 customers. There were 3 deal blockers and 7 churn risks. Categories that spiked include..."
+"This week there were {N} insights from {M} customers. There were {n} deal blockers and {n} churn risks. Categories that spiked include..."
 
 The good example tells a story. The bad example reads data.
 
@@ -223,7 +223,7 @@ When reading insights, silently exclude noise and report only real human feedbac
 
 - **Automated/bot-generated insights:** If you see insights where the reporter is an email address (not a person name), the content is a system error template repeated identically across many entries, or the same error message appears 10+ times with only a product ID changed — exclude these from your counts and analysis. These are machine-generated alerts, not customer feedback.
 - **Over-extracted calls:** If you find 10+ insights from the same speaker in the same call that are clearly variations of 3-4 topics (similar titles, same theme), count them as the distinct topics, not the raw insight count. "15 insights about 3 topics" = 3 topics from that customer.
-- **Don't mention the noise.** The reader doesn't need to know about data quality artifacts. Just present the clean picture. If a category shows 248 raw insights but 125 are automated templates, report the real number (~120 from real customers) without explaining the inflation.
+- **Don't mention the noise.** The reader doesn't need to know about data quality artifacts. Just present the clean picture. If a category shows many raw insights but a large share are automated templates, report the real number from real customers without explaining the inflation.
 
 ## Feedback To ClosedLoop AI
 
@@ -233,7 +233,7 @@ If the data looks missing, stale, low-quality, or surprising, or the user says t
 
 - **40-50 lines total.** Hard cap 55. If you can't fit it, your sentences are too long.
 - **Every claim is backed by evidence you read.** Never say "integrations spiked" without knowing why.
-- **No raw numbers without interpretation.** "+54%" alone is banned. "+54% — third-party integration errors across 8 customers" is required.
+- **No raw numbers without interpretation.** "+{X}%" alone is banned. "+{X}% — third-party integration errors across {n} customers" is required.
 - **No jargon.** No RIC scores, frustration floats, kano categories. Business language.
 - **Never show raw frustration scores.** Interpret the 0-1 number into plain language: 0-0.2 = calm, 0.2-0.4 = mild frustration, 0.4-0.6 = moderate frustration, 0.6-0.8 = high frustration, 0.8-1.0 = extreme frustration.
 - **Churn discipline — never declare an account churning, lost, or "done" from one quote or a count of dislikes.** Verify scope (full vs. partial — read the transcript), CRM status (`get_customer`: active customer with open deals ≠ churned), and engagement (still talking to us ≠ gone). Partial product-line migration to a different-category tool is "watch", not churn. Mixed evidence → "watch", never "done/escalate". `general_dislike` is dissatisfaction, not intent to leave.

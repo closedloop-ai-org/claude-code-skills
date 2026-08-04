@@ -71,7 +71,7 @@ Same pagination.
 For EVERY insight ID: `get_insight(id="{id}")`
 For EVERY signal ID: `get_signal(id="{id}")`
 
-Do NOT skip this. Search results return 300-char truncated previews. You need full verbatim content, pain_point, workaround, competitor_gap, entities_competitors, emotion, frustration_score, kano_category, job_statement, is_deal_blocker, and for signals: intelligence_type, competitor_name, churn_urgency, satisfaction_level, quantified_impact, signal_strength. (Churn lives on signals, not insights: stated churn = `churn_reason` signals read with `churn_urgency`; the per-insight churn flag is dead and unmaintained.)
+Do NOT skip this. Search results return 300-char truncated previews. You need full verbatim content, pain_point, workaround, competitor_gap, entities_competitors, emotion, frustration_score, kano_category, job_statement, is_deal_blocker, and for signals: intelligence_type, competitor_name, churn_urgency, satisfaction_level, quantified_impact, signal_strength. (Stated churn comes only from signals: `churn_reason` signals read with `churn_urgency`.)
 
 Read in parallel batches to save time.
 
@@ -223,7 +223,7 @@ WHAT WE DON'T KNOW
 ## What this skill does NOT do
 
 - **Does not prioritize.** We only see one topic. Can't rank it against things we haven't investigated. Run deep-dives on multiple topics and compare.
-- **Does not score or grade.** 47 customers and 5 deal blockers IS the score.
+- **Does not score or grade.** The customer count and the deal blockers behind a topic ARE the score.
 - **Does not recommend build/don't build.** We show evidence. You weigh it against engineering cost, strategy, capacity, and everything else we can't see.
 
 ## What this skill DOES do
@@ -253,9 +253,9 @@ When reading insights, silently exclude noise and report only real human feedbac
 - **Quote verbatim.** Exact customer words. Never paraphrase.
 - **Attribute every quote.** Customer name + company context if CRM data available.
 - **Use exact numbers.** Never "45+" — say "47." Precision builds trust.
-- **Group intelligently.** 40 insights about the same thing? Pick 3-5 best quotes, note "and {N} more said similar things."
+- **Group intelligently.** Many insights about the same thing? Pick 3-5 best quotes, note "and {N} more said similar things."
 - **Flag contradictions.** Some customers want X, others don't? Call it out.
-- **Note source distribution only if it reveals something.** "90% from support" = support burden. "90% from sales calls" = prospect blocker. If the split is unremarkable, skip it.
+- **Note source distribution only if it reveals something.** Mostly from support = support burden. Mostly from sales calls = prospect blocker. If the split is unremarkable, skip it.
 - **Be honest about thin evidence.** 2 customers? Say "limited evidence."
 - **Be honest about missing data.** No CRM? Say so. Don't show empty sections.
 - **Never fabricate.** Only present what MCP tools return.
