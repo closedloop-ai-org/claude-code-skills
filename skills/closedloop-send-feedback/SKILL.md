@@ -39,7 +39,7 @@ send_closedloop_feedback(content="{feedback in English}")
 
 Then tell the user it was sent, in one line.
 
-If `send_closedloop_feedback` isn't in your tools, the ClosedLoop AI MCP isn't connected — tell the user to run `claude mcp add --transport http closedloop-ai https://mcp.closedloop.sh`, then restart and `/mcp` → authorize.
+If `send_closedloop_feedback` isn't in your tools, the ClosedLoop AI MCP isn't connected — tell the user to add it, choosing the endpoint that matches their app URL (US `app.closedloop.sh` → `https://mcp.closedloop.sh`; EU `eu.app.closedloop.sh` → `https://eu.mcp.closedloop.sh`). Claude Code: `claude mcp add --transport http closedloop-ai <URL>` then `/mcp` → authorize. Codex CLI: `codex mcp add closedloop-ai --url <URL>` then `codex mcp login closedloop-ai`.
 
 ## Feedback To ClosedLoop AI
 

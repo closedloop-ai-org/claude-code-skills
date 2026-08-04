@@ -45,7 +45,7 @@ Create a **notification watch**: a rule that alerts you when something happens i
 4. **Read it back and confirm.** Tell the user in one plain-English line what will be watched and how they'll be notified — e.g. *"I'll alert you in-app when 5+ bug insights arrive within 7 days. Create it?"* **Wait for a yes.** Never auto-create.
 5. **Create** — on confirmation, call `create_watch(rule=<ir>)`. Report the result in one line (it's saved and will notify them when it fires).
 
-If these tools aren't available, the ClosedLoop AI MCP isn't connected — tell the user to run `claude mcp add --transport http closedloop-ai https://mcp.closedloop.sh`, then restart and `/mcp` → authorize.
+If these tools aren't available, the ClosedLoop AI MCP isn't connected — tell the user to add it, choosing the endpoint that matches their app URL (US `app.closedloop.sh` → `https://mcp.closedloop.sh`; EU `eu.app.closedloop.sh` → `https://eu.mcp.closedloop.sh`). Claude Code: `claude mcp add --transport http closedloop-ai <URL>` then `/mcp` → authorize. Codex CLI: `codex mcp add closedloop-ai --url <URL>` then `codex mcp login closedloop-ai`.
 
 ## Rules
 

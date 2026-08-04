@@ -26,11 +26,13 @@ Before doing anything, try calling `get_overview(time_range="all")`.
 ```
 ClosedLoop AI MCP is not connected. This skill needs it to access your customer feedback data.
 
-Set it up in 30 seconds:
+Set it up in 30 seconds — use the endpoint that matches your ClosedLoop AI app URL:
+  US  (app.closedloop.sh)     https://mcp.closedloop.sh
+  EU  (eu.app.closedloop.sh)  https://eu.mcp.closedloop.sh
 
-  claude mcp add --transport http closedloop-ai https://mcp.closedloop.sh
-
-Then restart Claude Code, type /mcp, select closedloop-ai, and authorize.
+Then add it with your agent (swap in your region's URL):
+  Claude Code   claude mcp add --transport http closedloop-ai <URL>   then /mcp and authorize
+  Codex CLI     codex mcp add closedloop-ai --url <URL>               then codex mcp login closedloop-ai
 
 Full guide: https://closedloop.sh/docs/mcp-server/overview
 ```

@@ -25,7 +25,8 @@ Full setup guide: https://closedloop.sh/docs/mcp-server/overview
 ```bash
 for skill in closedloop-deep-dive closedloop-weekly-brief closedloop-synthetic-customer \
   closedloop-competitor-gap closedloop-csm-prep closedloop-pm-prep closedloop-sales-playbook \
-  closedloop-ship-notify closedloop-scope-guard closedloop-watch closedloop-send-feedback \
+  closedloop-ship-notify closedloop-scope-guard closedloop-bug-blast-radius \
+  closedloop-watch closedloop-send-feedback \
   closedloop-product-ambassadors closedloop-product-ambassador-outreach \
   closedloop-customer-proof closedloop-customer-proof-outreach closedloop-sales-proof \
   closedloop-reference-customers closedloop-case-study-scout closedloop-proof-permissions; do
@@ -157,6 +158,15 @@ Check a spec, PRD, or ticket against customer evidence *before* it gets built. S
 ```
 /closedloop-scope-guard check this PRD against customer evidence
 /closedloop-scope-guard does anyone actually want the things in ENG-1204?
+```
+
+### `/closedloop-bug-blast-radius`
+
+Answer how important a bug is before you triage it: who reported it, how badly, what it is worth, and whether it is still happening. Uses `get_bug_blast_radius`; read only. Totals decompose into named customers, so when every match fits in one page you can drop one that does not belong and the number stays honest; when it does not, the response says so rather than letting you subtract from a total you cannot see. Reflects reported pain — customers who hit the bug and never told you are not in it.
+
+```
+/closedloop-bug-blast-radius how bad is the saved-card checkout failure?
+/closedloop-bug-blast-radius is the CSV export timeout worth fixing this sprint?
 ```
 
 ### `/closedloop-watch`
