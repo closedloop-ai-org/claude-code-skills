@@ -64,9 +64,9 @@ find_customer_proof(
 )
 ```
 
-Do not manually stitch lower-level searches. The tool ranks candidates, joins person/account detail, returns verbatim evidence, recommends one of four usage scopes, excludes inactive or unresolved customer accounts, and includes follow-up actions.
+Do not manually stitch lower-level searches. The tool ranks candidates, joins person/account detail, returns verbatim evidence, recommends a usage scope, excludes inactive or unresolved customer accounts, and includes follow-up actions.
 
-The four `recommended_usage_scope` values are:
+The `recommended_usage_scope` values are:
 
 | Scope | Meaning |
 |---|---|
@@ -74,6 +74,7 @@ The four `recommended_usage_scope` values are:
 | `sales` | Sales decks, follow-up emails, sales collateral, or prospect conversations handled by the vendor team. |
 | `case_study` | Interview, ROI validation, named customer story, or written/video case study. |
 | `live_reference` | Customer directly participates in reference activity such as an email intro, short call, webinar, analyst/media reference, or similar. |
+| `social` | A public social post quoting the customer, with their name and company attached. |
 
 If the tool returns no candidates, an explanation, warnings, excluded candidates, or suggested alternatives, summarize that response directly. Do not add assumptions or invent proof.
 

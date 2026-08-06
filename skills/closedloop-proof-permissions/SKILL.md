@@ -86,5 +86,5 @@ If the permission request, fake email, evidence, or test-status flow looks wrong
 - Never send customer email.
 - Never claim approval until `test_status` is `approved`.
 - A logged fake email is not proof of consent.
-- Keep permission scope explicit: `website`, `sales`, `case_study`, or `live_reference`.
+- Keep permission scope explicit: `website`, `social`, `sales`, `case_study`, or `live_reference`.
 - Use returned request ids; do not invent ids.

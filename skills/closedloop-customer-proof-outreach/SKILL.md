@@ -1,6 +1,6 @@
 ---
 name: "closedloop-customer-proof-outreach"
-description: "Draft permission outreach for one selected marketing proof candidate returned by find_customer_proof. Use when the user chooses a customer proof candidate and wants a permission email for website, sales, case-study, or live-reference use. Uses prepare_customer_proof_outreach. Draft only; never sends messages or claims permission was granted."
+description: "Draft permission outreach for one selected marketing proof candidate returned by find_customer_proof. Use when the user chooses a customer proof candidate and wants a permission email for website, social, sales, case-study, or live-reference use. Uses prepare_customer_proof_outreach. Draft only; never sends messages or claims permission was granted."
 ---
 
 # ClosedLoop AI Customer Proof Outreach
@@ -27,6 +27,7 @@ Prefer the returned `usage_scope` from `follow_up_actions[0].params`. The suppor
 | `sales` | Sales decks, follow-up emails, sales collateral, or prospect conversations handled by the vendor team. |
 | `case_study` | Interview, ROI validation, named customer story, or written/video case study. |
 | `live_reference` | Customer directly participates in reference activity such as an email intro, short call, webinar, analyst/media reference, or similar. |
+| `social` | A public social post quoting the customer, with their name and company attached. |
 
 If no selected candidate is available, ask the user to run `closedloop-customer-proof` first or to choose one candidate from the discovery results.
 
@@ -95,4 +96,5 @@ If the data looks missing, stale, low-quality, or surprising, or the user says t
 - For sales use, ask for permission to reuse the quote in sales decks, follow-up emails, and prospect conversations handled by the vendor team.
 - For case-study use, ask for a short conversation before asking for final approval; validate metrics, baselines, and timeframes before publication.
 - For live-reference use, ask whether the customer is open to direct participation and confirm format, frequency, and opt-out expectations.
+- For social use, ask for permission to quote them in a public social post, confirm attribution and whether they want to be tagged, and offer to send the exact post before it goes out.
 - If permission is unknown, say it is unknown.
