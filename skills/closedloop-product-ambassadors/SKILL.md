@@ -16,9 +16,9 @@ Accept a feature, product area, workflow, or product initiative in plain languag
 Examples:
 
 ```text
-Find product ambassadors for memberships.
+Find product ambassadors for usage-based billing.
 Find beta users for API exports from the last 180 days.
-Who should we invite as design partners for the booking engine?
+Who should we invite as design partners for the onboarding flow?
 ```
 
 If the user gives no product scope, ask:

@@ -17,15 +17,28 @@ Examples:
 
 ```text
 Who could be a reference for reporting ROI?
-Find tour operators we could ask for a peer reference.
+Find mid-market SaaS customers we could ask for a peer reference.
 Who can talk to a prospect about rollout?
 ```
 
 Default `time_period_days` to 90 and `limit` to 10 unless the user specifies otherwise.
 
+## Tool Discovery
+
+Depending on how LiteLLM namespaces MCP tools, the callable tool may appear as either `find_reference_customers` or `closedloop_ai-find_reference_customers`. Use the available name with that exact suffix.
+
+If neither name is available:
+
+1. State that the ClosedLoop AI tool has not been discovered; do not invent results.
+2. Ask an integration manager to open **ClosedLoop AI → Integrations → Developer tools → LiteLLM** and complete the guided setup.
+3. In LiteLLM, reload the configuration and list the available tools.
+4. Retry this skill after `find_reference_customers` appears.
+
+The `/mcp` command shows connections in Claude Code. It does not show LiteLLM connections in another app.
+
 ## Execute
 
-Call:
+Call the available exact or namespaced tool name:
 
 ```text
 find_reference_customers(

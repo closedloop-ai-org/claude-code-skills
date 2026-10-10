@@ -45,7 +45,7 @@ prepare_customer_proof_outreach(
 
 If the user selected a candidate by description, pass the matching `account_id`, `proof_type`, and one person identifier from the discovery result.
 
-Do not draft for candidates that the tool rejects or marks as excluded. Summarize the rejection and ask the user to choose a non-excluded candidate.
+Do not draft for candidates that the tool rejects. Summarize the rejection and ask the user to choose another candidate. When the discovery result carried a `warnings` entry for the person, repeat it before drafting so the user can confirm who they are.
 
 ## Present The Draft
 

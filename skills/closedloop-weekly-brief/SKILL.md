@@ -92,7 +92,7 @@ Do NOT use `is_churn_risk` — that flag is dead. A stated-churn signal is a `ch
 
 **Churn verification — REQUIRED before any account is called "churning", "at risk", "lost", or "done":**
 A churn quote is a CLAIM, not a verdict. Verify each one before it earns a line:
-1. **Scope — full account vs. partial.** Read the conversation (`get_conversation`) around the quote. A customer moving ONE use-case, site, or product line to a DIFFERENT-CATEGORY tool (e.g. a restaurant/F&B booking tool alongside a ticketing platform) is NOT account churn. Scope words ("for now", "this site", "these bookings", "for the restaurant") bound the claim — quote them. Only language ending the WHOLE relationship is account churn.
+1. **Scope — full account vs. partial.** Read the conversation (`get_conversation`) around the quote. A customer moving ONE use-case, team, or product line to a DIFFERENT-CATEGORY tool (e.g. a separate invoicing tool alongside the main platform) is NOT account churn. Scope words ("for now", "this team", "these invoices", "for the EU entity") bound the claim — quote them. Only language ending the WHOLE relationship is account churn.
 2. **CRM status.** From `get_customer`: an active customer with open or won deals is NOT "done". Say "partial migration" or "watch" — never "churned/lost".
 3. **Engagement.** A customer still generating insights and conversations this period is engaged, not gone. Silence is the churn tell, not volume. (A churned account with zero insights predates our feedback window — never call it "silent".)
 

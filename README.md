@@ -94,7 +94,7 @@ Discovery brief for product managers. Learning goals, knowledge gaps, data-groun
 Find customers a product team should involve for a product area or feature. Returns action-specific PM candidates, evidence, next steps, and follow-up actions for design partners, early validators, internal champions, and expert reviewers.
 
 ```
-Find product ambassadors for memberships.
+Find product ambassadors for usage-based billing.
 Find beta users for API exports.
 ```
 
@@ -112,7 +112,7 @@ Write an invite for the selected beta user.
 Find marketing-ready customer proof from ClosedLoop AI evidence: quotes, testimonials, case-study candidates, customer love, launch proof, social proof, adoption stories, and ROI/value proof. Keeps public proof separate from PM product ambassador workflows.
 
 ```
-Find customer quotes about memberships.
+Find customer quotes about usage-based billing.
 Find case study candidates for API exports.
 ```
 
@@ -122,7 +122,7 @@ Draft permission outreach for one selected customer proof candidate. Use after `
 
 ```text
 Draft permission outreach for candidate 1
-Prepare a case-study ask for Quentin from Quote Hotel
+Prepare a case-study ask for Jane from Acme Corp
 ```
 
 ### `/closedloop-send-feedback`
@@ -182,7 +182,7 @@ Set up a notification watch — get alerted (Slack / Teams / in-app) when someth
 Build a sales proof packet for a prospect conversation: short snippets, customer examples, permitted/unpermitted use caveats, and follow-up asks — grounded in real customer evidence.
 
 ```text
-Build sales proof for a museum prospect worried about reconciliation
+Build sales proof for a mid-market prospect worried about reconciliation
 ```
 
 ### `/closedloop-reference-customers`

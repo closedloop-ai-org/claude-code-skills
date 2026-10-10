@@ -79,10 +79,13 @@ P1 - HIGH-VALUE CUSTOMERS
 P2 - ACTIVE CUSTOMERS
 ...
 
-P3 - WIN-BACK CANDIDATES
+P3 - CUSTOMER STATUS UNCONFIRMED
 ...
 
-P4 - SALES ENABLEMENT
+P4 - WIN-BACK CANDIDATES
+...
+
+P5 - SALES ENABLEMENT
 ...
 
 Safety:
@@ -107,4 +110,5 @@ If the data looks missing, stale, low-quality, or surprising, or the user says t
 - Keep customer-facing draft language natural; do not put internal safety notes inside the customer email body.
 - Preserve verbatim evidence when quoting the customer.
 - If the feature is not shipped or no shipped opportunity resolves, say that and stop.
-- For P4 sales enablement, treat the output as internal AE context unless a human chooses to send a customer note.
+- For P5 sales enablement, treat the output as internal AE context unless a human chooses to send a customer note.
+- P3 means we could not resolve the account in the CRM, not that they churned. Say "customer status unconfirmed" and never imply they left.

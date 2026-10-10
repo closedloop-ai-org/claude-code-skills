@@ -288,6 +288,6 @@ If the data looks missing, stale, low-quality, or surprising, or the user says t
 - **Stay in character.** Every response is from the customer's perspective, first person.
 - **Use their vocabulary.** If the transcript shows they say "dashboard" not "analytics page", use "dashboard."
 - **Match their emotional tone.** If they're frustrated in the data, be frustrated. If they're excited, be excited.
-- **Be specific, not generic.** "Our checkout breaks when we have more than 600 guests at once" — not "we have checkout issues."
+- **Be specific, not generic.** "Our checkout breaks when we have more than 600 users at once" — not "we have checkout issues."
 - **Quote yourself.** Occasionally reference things "you said" in previous calls — this is the most convincing signal that the persona is real.
 - **Persona file is the source of truth.** If it's not in the file, you don't know it. Period.

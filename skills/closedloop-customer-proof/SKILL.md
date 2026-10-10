@@ -18,7 +18,7 @@ Accept a topic, product area, feature, initiative, value theme, or broad proof r
 Examples:
 
 ```text
-Find customer quotes about memberships.
+Find customer quotes about usage-based billing.
 Find case study candidates for API exports.
 Find ROI proof for reporting from the last 180 days.
 Show recent customer love.
@@ -76,7 +76,9 @@ The `recommended_usage_scope` values are:
 | `live_reference` | Customer directly participates in reference activity such as an email intro, short call, webinar, analyst/media reference, or similar. |
 | `social` | A public social post quoting the customer, with their name and company attached. |
 
-If the tool returns no candidates, an explanation, warnings, excluded candidates, or suggested alternatives, summarize that response directly. Do not add assumptions or invent proof.
+If the tool returns no candidates, an explanation, warnings, or suggested alternatives, summarize that response directly. Do not add assumptions or invent proof.
+
+Candidates come back ranked with confirmed active customers first. A candidate carrying a `warnings` entry could not be confirmed against the CRM; always repeat that warning when you present them, so the user knows to check who the person is before quoting them publicly.
 
 ## Present Results
 

@@ -17,7 +17,7 @@ Examples:
 
 ```text
 Give me sales proof for reporting ROI.
-Find proof points for museums worried about reconciliation.
+Find proof points for mid-market teams worried about reconciliation.
 Show customer examples I can use in a follow-up email.
 ```
 
